@@ -1,0 +1,62 @@
+{% extends 'authority/index.html' %}
+
+{% block title %} Contact {% endblock %}
+
+
+    <!-- Page Heading -->
+    {% block content %}
+
+    <center><h1 class="darkNormalContent">Contact</h1></center>
+
+
+
+
+    <div class="card o-hidden my-5 darkRowBorder darkNormalContent">
+            <!-- Nested Row within Card Body -->
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 mb-4">Encountered an issues on platform?</h1>
+                        </div>
+                        <form class="user" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                    <input type="text" class="form-control form-control-user" name="message" id="Message"
+                                    placeholder="Enter Your Message Here" required="true">
+                            </div>
+                            <div class="form-group row ">
+                                <div class="col-sm-6" >
+                                Attach A file for reference*: (png,jpg,jpeg)
+                            </div>
+                            <div class="col-sm-6 " >
+                                       <input type="file" name="image" id="errorimage" required>
+                                    </div>
+                                </div>
+                            <center><input type="Submit" class="btn btn-primary" id="submit" name="submit" value="send" onclick="send();"></center>
+                        </form>
+                    </div>
+
+            </div>
+            <br>
+
+
+
+<script type="text/javascript">
+    function send(){
+        var s=document.getElementById('errorimage').value;
+        if(s=="")
+        {
+            alert("Please Select Image");
+        }
+        else
+        {
+            var ext=s.split(".")
+            if(ext=='png' || ext=='jpg' || ext=='jpeg')
+            {
+                //alert('Invalid File Type');
+                //window.location.href="{% url 'authorityApp:contact_admin' %}"
+                alert('Message sent successfully');
+            }
+        }
+    }
+</script>
+{% endblock %}

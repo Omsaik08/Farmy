@@ -1,0 +1,70 @@
+{% extends 'farmer/index.html' %}
+
+{% block title %} Videos {% endblock %}
+
+{% block content %}
+
+
+<style type="text/css">
+
+	.imagePart{
+		height: 70%;
+		width: 90%;
+	}
+
+	.colVideos{
+		width: 25%;
+		height: max-content;
+		text-align:center;
+	}
+
+	@media only screen and (max-width: 1000px){
+		.colVideos{
+			width: 33%;
+
+		}
+	}
+	@media only screen and (max-width: 800px){
+		.colVideos{
+			width: 50%;
+
+		}
+	}
+	@media only screen and (max-width: 600px){
+		.colVideos{
+			width: 100%;
+
+		}
+	}
+
+</style>
+
+<div class="container">
+    <br>
+    <center><h2 class="darkNormalContent">Useful <strong>Videos 🎥 !</strong></h2></center>
+	<div class="row">
+		      {% if data == "" %}
+	         <center>
+                    <h3 class="darkNormalContent">
+                      No Videos Found
+                    </h3>
+                </center>
+    	  {% else %}
+		{% for i in data %}
+		<div class="colVideos darkRowBorder">
+				<iframe  class="imagePart" src="{{i.2}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				<p>{{i.1}}<br>
+				<span class="icon-calendar darkNormalContent"> {{i.3}}</span></p>
+		</div>
+		{% endfor %}
+		{% endif %}
+
+
+		<br>
+	</div>
+
+</div>
+
+<br>
+
+{% endblock %}

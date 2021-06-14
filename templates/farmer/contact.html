@@ -1,0 +1,100 @@
+{% extends 'farmer/index.html' %}
+
+{% block title %} Contact us {% endblock %}
+
+
+{% block content %}
+{% load static %}
+<head>
+  <style>
+a:hover{
+  color:unset;
+}
+  .col-md-3.d-flex{
+    background-color: white;
+}
+  @media only screen and (max-width: 600px) {
+ .maps{
+      width: 100%;
+    padding: 13px;}
+}
+
+  </style>
+  </head>
+
+    <div class="hero-wrap hero-bread" style="background-image: url('{%static 'farmer/images/contact.jpg'%}');">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+            <p class="breadcrumbs"><span class="mr-2"><a href=" {% url 'farmerApp:homepage' %} ">Home /</a></span> <span>Contact us</span></p>
+            <h1 class="mb-0 bread">Contact us</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="ftco-section contact-section">
+      <div class="container">
+        <div class="row d-flex mb-5 contact-info ">
+          <div class="w-100"></div>
+          <div class="col-md-3 d-flex darkRowBorder">
+            <div class="info p-4 " >
+              <p class=" darkNormalContent"><span>🏚 Address:</span> Hirachand Nemchand Marg,Walchand Institute of Technology,Solapur</p>
+            </div>
+          </div>
+          <div class="col-md-3 d-flex darkRowBorder">
+            <div class="info   p-4">
+              <p class="darkNormalContent"><span>📞 Phone:</span> <a class="darkNormalContent" href="tel://8083946171">+ 8083946171</a></p>
+            </div>
+          </div>
+          <div class="col-md-3  d-flex darkRowBorder">
+            <div class="info  p-4">
+              <p class=" darkNormalContent"><span>📧 Email:</span> <a class="darkNormalContent" href="mailto:bizzfarmy@gmail.com">bizzfarmy@gmail.com</a></p>
+            </div>
+          </div>
+          <div class="col-md-3 d-flex darkRowBorder">
+            <div class="info   p-4">
+              <p class=" darkNormalContent"><span>🕸 Website : </span> <a class="darkNormalContent" href="http://bizzfarmy.pythonanywhere.com/">bizzfarmy</a></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row ">
+          <div class="col-md-6 order-md-last d-flex darkRowBorder">
+            <form action="" class=" p-5 contact-form" method="POST" onsubmit="mySubmit()">
+                {% csrf_token %}
+                <div class="form-group">
+                  <input type="text" class="form-control" name="farmer_name" placeholder="Your Name" required="true">
+                </div>
+                <div class="form-group">
+                  <input type="Email" class="form-control" name="farmer_email"placeholder="Your Email" required="true">
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" name="email_subject" placeholder="Subject" required="true">
+                </div>
+                <div class="form-group">
+                  <textarea id="" cols="30" rows="7" name="message" class="form-control" placeholder="Message" required="true"></textarea>
+                </div>
+                <div class="form-group">
+                  <input type="submit" value="Send Message" name="contact_mail" class="btn btn-primary py-3 px-5">
+                </div>
+            </form>
+          </div>
+
+          <div class="col-md-6 order-md-last d-flex darkRowBorder" style="padding: 0%;">
+            <div class="maps" style="height: 100%;width: 100%;">
+            <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=100%25&amp;hl=en&amp;q=Hirachand%20Nemchand%20Marg,Walchand%20Institute%20of%20Technology,Solapur+(FARMY)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe><a href="https://www.maps.ie/route-planner.htm"></a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+<script>
+      function mySubmit() {
+  alert("Thanks for your response..we will get back to you soon!");
+}
+    </script>
+
+{% endblock %}

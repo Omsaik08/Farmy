@@ -1,0 +1,194 @@
+{% extends 'farmer/index.html' %}
+
+{% block title %} Farmy {% endblock %}
+
+
+
+{% block content %}
+
+<style type="text/css">
+
+	.userName{
+		font-size: x-large;
+	    color: #22cd92;
+	    cursor: pointer;
+	}
+	abbr{
+		text-decoration: none !important;
+	}
+
+	.imagePart{
+    width: 80%;
+      height: 100px;
+  }
+
+	.moreDetails{
+		text-align: right;
+	}
+
+	.row.user{
+		margin:0;
+		word-break: break-word;
+		padding: 1%;
+	}
+	.col-sm-4
+	{
+		display: grid;
+		text-align: center;
+	}
+	.container-fluid{
+		padding: 1%;
+		margin: 0;
+	}
+	.btn.btn-primary.btn-user.btn-block{
+		font-size: 18px;
+	}
+
+
+
+	@media only screen and (max-width:800px)
+	{
+		.col-sm-8 .user{
+			display: contents;
+			text-align: center;
+		}
+	}
+
+
+</style>
+{% load static %}
+
+<div class="container-fluid">
+
+	<center><h3 class="darkNormalContent">Question Details</h3></center>
+	<div class="row user darkRowBorder darkNormalContent">
+
+		<div class="col-sm-4 user">
+
+
+				<div class="row user ">
+				{% if qdata.0.3 == "" %}
+				<a href="{% static 'farmer/images/no_image.jpg' %}" target="_blank">
+					<img src=" {% static 'farmer/images/no_image.jpg' %} " class="imagePart">
+				</a>
+				{% else %}
+				<a href="/media/{{qdata.0.3}}" target="_blank">
+					<img src="/media/{{qdata.0.3}}" class="imagePart">
+				</a>
+				{% endif %}
+			</div>
+			<br>
+			<div class="row user">
+				{% if qdata.0.4 == "" %}
+				<a href="{% static 'farmer/images/no_image.jpg' %}" target="_blank">
+					<img src=" {% static 'farmer/images/no_image.jpg' %} " class="imagePart">
+				</a>
+				{% else %}
+				<a href="/media/{{qdata.0.4}}" target="_blank">
+					<img src="/media/{{qdata.0.4}}" class="imagePart">
+				</a>
+				{% endif %}
+			</div>
+			<br>
+
+
+		</div>
+
+		<div class="col-sm-8 user">
+
+			<center>
+				<div onclick="showUserDetails(this)" > asked by <abbr title="Show User Details"><span class="userName"><u>{{qdata.0.11}}&nbsp{{qdata.0.12}}</u> </span></abbr> on <span class="qtime">{{qdata.0.6}}  </span>
+
+				<div id="userDetails" class="userDetails darkRowBorder darkNormalContent" style="display: none;">
+					<div class="row user ">
+						<div class="col-4 user pt-1">
+							{% if qdata.0.10 == ""  %}
+							<a href="/static/farmer/images/no_image.jpg" target="_blank">
+								<img src="/static/farmer/images/no_image.jpg" class="imagePart">
+							</a>
+							{% else %}
+							<a href="/media/{{qdata.0.10}}" target="_blank">
+								<img src="/media/{{qdata.0.10}}" class="imagePart">
+							</a>
+							{% endif %}
+						</div>
+						<div class="col-8" style="display: grid;">
+							<p> Full Name : {{qdata.0.11}} {{qdata.0.12}} </p>
+							<p> Email : {{qdata.0.13}} </p>
+						</div>
+					</div>
+				</div>
+				</div>
+					<br>
+
+        				<h5 class="darkContent">Title : {{qdata.0.1}}</h5>
+        				<p class="darkContent">Description : {{qdata.0.2}} </p>
+        				<div class="moreDetails">
+        					{% if qdata.0.7 != 'answered' %}
+        						<p> Question Status : {{qdata.0.7}} </p>
+        			    </div>
+
+					{% endif %}
+				</div>
+
+				{% for i in adata %}
+					<hr style="border-top: 1px solid black;">
+					<div onclick="showUserDetails(this)"> answered by <abbr title="Show User Details"><span class="userName"><u>{{i.9}}</u></span></abbr> on <span class="qtime">{{i.16}}</span>
+
+					<div class="userDetails darkRowBorder darkNormalContent" style="display: none;">
+						<div class="row user">
+							<div class="col-4 user" >
+								{% if i.9 == ""  %}
+								<a href="/static/farmer/images/no_image.jpg" target="_blank">
+									<img src="/static/farmer/images/no_image.jpg" class="imagePart">
+								</a>
+								{% else %}
+								<a href="/media/{{i.8}}" target="_blank">
+									<img src="/media/{{i.8}}" class="imagePart">
+								</a>
+								{% endif %}
+							</div>
+							<div class="col-8" style="display: grid;">
+								<p> Full Name : {{i.9}} </p>
+								<p> Email : {{i.10}} </p>
+
+							</div>
+						</div>
+					</div>
+
+					</div>
+
+					<br>
+					<h3 class="darkContent"> ✅ {{i.1}} </h3>
+				{% endfor %}
+
+
+			</center>
+		</div>
+	</div>
+
+</div>
+<br>
+
+<script type="text/javascript">
+
+	var v=document.getElementsByClassName("qtime");
+	for (var i=0; i<v.length; i++) {
+		var s = v[i].textContent.split("T");
+		v[i].innerHTML = "".concat(s[0]," ",s[1].substring(0,2),":",s[1].substring(2,4),":",s[1].substring(4,6));
+	}
+
+	function showUserDetails( d ){
+		if( d.querySelector(".userDetails").style.display == 'block'  ){
+		    d.querySelector(".userDetails").style.display = 'none';
+			d.querySelector('abbr').title = "Show User Details";
+		}
+		else{
+			d.querySelector(".userDetails").style.display = 'block';
+			d.querySelector('abbr').title = "Hide User Details";
+		}
+	}
+
+</script>
+
+{% endblock %}

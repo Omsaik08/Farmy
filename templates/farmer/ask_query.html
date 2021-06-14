@@ -1,0 +1,194 @@
+{% extends 'farmer/index.html' %}
+
+{% block title %} Ask a Question {% endblock %}
+
+
+{% block content %}
+{% load static %}
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <style>
+
+   .title{
+     font-size: 13px;
+    position: relative;
+    top: 11px;
+    color: #22cd92;
+    font-weight: 800;
+   }
+
+    .input{
+      padding: 10px;
+    }
+
+
+    @media only screen and (max-width:800px ){
+      .col-6{
+        width: 100%;
+        max-width: 100% !important;
+      }
+
+      .row{
+        display: inline;
+      }
+      #toxicPopup{
+        width: 70% !important;
+        left: 15% !important;
+      }
+    }
+
+  </style>
+
+</head>
+
+<center>
+  <div id="toxicPopup" style="display: none;">
+    <button class="closePopup">❌</button>
+    <h2 style="color: red;">Your Question was Found Suspicious!</h2>
+    <p>According to our privacy policy, we found that your question falls under <b style="color:red;">TOXICITY</b> category. Please ensure that you use appropriate words while asking query.</p>
+
+</div>
+</center>
+
+
+<div class="container">
+  <br>
+  <div class="row">
+
+    <div  class="col-6 user darkRowBorder">
+
+      <h1 class="text-bold spc-sm-s as-h2" style="color: #22cd92;">Ask A Question 🙋</h1>
+      <form method="POST" action=" {% url 'farmerApp:ask_query' %} " enctype="multipart/form-data">
+        {% csrf_token %}
+        <p class="darkNormalContent">Make sure what you&rsquo;re asking is unique, concise, and phrased like a question.</p>
+
+        <label class="spc-zero-n" for="question_title">
+          <div class="title "> Title<span class="text-small "> (Required)</span></div>
+        </label>
+        <br>
+        <div class="input">
+          <input id="question_title" name="title" placeholder="What’s your question? Be specific and unique..."  style="width: 80%;border-radius: 5px;border:1px solid black;" />
+        </div>
+        <br>
+        <label for="question_content">
+          <div class="title ">Description <span class="text-small ">(Optional)</span></div>
+        </label>
+        <div class="input">
+          <textarea name="question" style=" border-radius: 5px;  width: 80%;" placeholder="Give your description ...." style="paddin-left:10px;">
+        </textarea>
+      </div>
+        <br>
+        <label for="question_topics" style="padding-bottom: 10px ">
+          <div class="title ">Add Photos<span class="text-small ">(Min 2.)</span></div>
+        </label>
+        <br>
+        <div class="input darkNormalContent">
+          <input id="photos"  type="file" name="image1" />
+
+        </div>
+        <br>
+        <div class="input darkNormalContent">
+          <input id="photos"  type="file" name="image2" />
+        </div>
+
+        <input type="number" name="farmer_id" value="{{ request.session.farmer_id }}" hidden>
+        <input type="text" name="timestamp" id="timestamp" hidden>
+        <input type="text" name="tags" value="." hidden>
+        <input type="text" name="status" value="not answered" hidden>
+
+        <br>
+        <div class="button" style="padding: 10px; ">
+          <input type="submit"  class="btn btn-wide-mobile text-caps" style="background-color: #8bc34a;border-radius: 67px; width: 80%;" onclick="setDate()" />
+        </div>
+      </form>
+
+<style>
+    input{
+        padding-left:10px;
+    }
+</style>
+
+    </div>
+
+    <div  class="col-6 user darkRowBorder darkNormalContent" >
+      <div class="di" style="padding:  15px">
+        <h4 class="text-large text-bold" style="color: #22cd92;"> ❓  QUESTION GUIDELINES</h4>
+        <p>Include a title to your question and a more detailed description. The more unique and informative your question, the better the chance you have of agricultural authorities engaging with you.</p>
+        <hr>
+        <h5 class="text-caps spc-n" style="color: #22cd92;">Other Tips</h5>
+
+        <li>Keep your questions short and to the point</li>
+        <li>Check for grammar or spelling errors</li>
+        <li>Phrase it like a question</li>
+        <hr>
+        <h5 class="text-caps spc-sm-n" style="color: #22cd92;">Answers &amp; Comments</h5>
+        <p>We&rsquo;ll notify you by email and SMS whenever a officer answers your question or when you receive comments for more clarification</p>
+
+        <hr>
+
+        <p>Remember to follow the <a class="honesty-policy-link wyzantModal" href="{% url 'farmerApp:privacy_policy' %}">academic honesty</a> policy when composing your question.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+<br>
+
+<script>
+  function setDate(){
+    x = new Date();
+    res = x.getDate()+"-"+(x.getMonth()+1)+"-"+x.getFullYear()+"T"+String(x.getHours()).padStart(2, "0")+""+String(x.getMinutes()).padStart(2, "0")+""+String(x.getSeconds()).padStart(2, "0");
+    document.getElementById('timestamp').value=res;
+  }
+
+</script>
+<style type="text/css">
+#toxicPopup{
+  width: 50%;
+  text-align: center;
+  background-color: #343a40;
+  top: 15%;
+  position: fixed;
+  z-index: 100;
+  left: 25%;
+  border-radius: 5px;
+  padding: 1% 1% 2% 2%;
+  color: white;
+  word-break: break-word;
+}
+.closePopup{
+  float: right;
+  top: -23px;
+  position: initial;
+  left: 22px;
+  background-color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+</style>
+
+{% if toxic_status == "toxic" %}
+<script>
+  $('#toxicPopup').css('display','block');
+  $('.row').css('filter','blur(1px)');
+</script>
+{% elif toxic_status == "insult" %}
+  <script>
+  $('#toxicPopup').css('display','block');
+  $('.row').css('filter','blur(1px)');
+</script>
+{% endif %}
+
+
+<script >
+$('.closePopup').click(function(){
+    $('#toxicPopup').css('display','none');
+    $('.row').css('filter','unset');
+  });
+</script>
+{% endblock %}

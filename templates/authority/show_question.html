@@ -1,0 +1,237 @@
+{% extends 'authority/index.html' %}
+
+{% block title %} Farmy-Authority {% endblock %}
+
+
+
+{% block content %}
+
+<style type="text/css">
+
+	.userName{
+		font-size: x-large;
+	    color: #22cd92;
+	    cursor: pointer;
+	}
+	abbr{
+		text-decoration: none !important;
+	}
+
+	.imagePart{
+    width: 80%;
+      height: 100px;
+  }
+
+	.moreDetails{
+		text-align: right;
+	}
+
+	.row.user{
+		margin:0;
+		word-break: break-word;
+		padding: 1%;
+	}
+	.col-sm-4
+	{
+		display: grid;
+		text-align: center;
+	}
+	.container-fluid{
+		padding: 1%;
+		margin: 0;
+	}
+	.btn.btn-primary.btn-user.btn-block{
+		font-size: 18px;
+	}
+
+
+
+	@media only screen and (max-width:800px)
+	{
+		.col-sm-8 .user{
+			display: contents;
+			text-align: center;
+		}
+	}
+
+
+</style>
+{% load static %}
+
+<div class="container-fluid">
+
+
+	  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    <button type="button" class="close" data-dismiss="modal" style="color: red">&times;</button>
+      <!-- Modal content-->
+      <div class="modal-content darkRowBorder darkNormalContent">
+        <div class="modal-header">
+          <h4 class="modal-title">Reply</h4>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action=" {% url 'authorityApp:show_question' qdata.0.0 %} ">
+				{% csrf_token %}
+				<input type="text" name="question_id" value="{{qdata.0.0}}" hidden>
+				<input type="text" name="authority_id" value=" {{request.session.authority_id}} " hidden>
+				<input type="text" name="timestamp" id="timestamp" hidden>
+				<input type="number" name="likes" value="0" hidden>
+				<input type="number" name="dislikes" value="0" hidden>
+				<p>Question Title : {{qdata.0.1}} </p>
+				<p>Question Description : {{qdata.0.2}} </p>
+				<p>Asked on : <span class="qtime">{{qdata.0.6}}  </span></p>
+				<p>Reply : </p> <textarea  name="answer" rows="5" cols="45"></textarea>
+
+				<input type="submit" class="btn btn-primary btn-user btn-block" value="Post Answer" onclick="setDate()">
+
+			</form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" style="color: black;">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+	<center><h3 class="darkNormalContent">Question Details</h3></center>
+	<div class="row user darkRowBorder darkNormalContent">
+
+		<div class="col-sm-4 user">
+
+
+				<div class="row user">
+				{% if qdata.0.3 == "" %}
+				<a href="{% static 'farmer/images/no_image.jpg' %}" target="_blank">
+					<img src=" {% static 'farmer/images/no_image.jpg' %} " class="imagePart">
+				</a>
+				{% else %}
+				<a href="/media/{{qdata.0.3}}" target="_blank">
+					<img src="/media/{{qdata.0.3}}" class="imagePart">
+				</a>
+				{% endif %}
+			</div>
+			<br>
+			<div class="row user">
+				{% if qdata.0.4 == "" %}
+				<a href="{% static 'farmer/images/no_image.jpg' %}" target="_blank">
+					<img src=" {% static 'farmer/images/no_image.jpg' %} " class="imagePart">
+				</a>
+				{% else %}
+				<a href="/media/{{qdata.0.4}}" target="_blank">
+					<img src="/media/{{qdata.0.4}}" class="imagePart">
+				</a>
+				{% endif %}
+			</div>
+			<br>
+
+
+		</div>
+
+		<div class="col-sm-8 user">
+
+			<center>
+				<div onclick="showUserDetails(this)"> asked by <abbr title="Show User Details"><span class="userName"><u>{{qdata.0.11}} {{qdata.0.12}}</u> </span></abbr> on <span class="qtime">{{qdata.0.6}}  </span>
+
+				<div id="userDetails" class="userDetails darkRowBorder darkNormalContent" style="display: none;">
+					<div class="row user">
+						<div class="col-4 user pt-1">
+							{% if qdata.0.10 == ""  %}
+							<a href="/static/farmer/images/no_image.jpg" target="_blank">
+								<img src="/static/farmer/images/no_image.jpg" class="imagePart">
+							</a>
+							{% else %}
+							<a href="/media/{{qdata.0.10}}" target="_blank">
+								<img src="/media/{{qdata.0.10}}" class="imagePart">
+							</a>
+							{% endif %}
+						</div>
+						<div class="col-8" style="display: grid;">
+							<p> Full Name : {{qdata.0.11}} {{qdata.0.12}} </p>
+							<p> Email : {{qdata.0.13}} </p>
+						</div>
+					</div>
+				</div>
+				</div>
+					<br>
+				<h5 class="darkContent">Title : {{qdata.0.1}}</h5>
+				<p class="darkContent">Description : {{qdata.0.2}} </p>
+				<div class="moreDetails">
+					{% if qdata.0.7 != 'answered' %}
+						<p> Question Status : {{qdata.0.7}} </p>
+					{% endif %}
+				</div>
+
+
+
+				{% for i in adata %}
+					<hr style="border-top: 1px solid black;">
+					<div onclick="showUserDetails(this)" > answered by <abbr title="Show User Details"><span class="userName"><u>{{i.9}}</u></span></abbr> on <span class="qtime">{{i.16}}</span>
+
+					<div class="userDetails darkRowBorder darkNormalContent" style="display: none;">
+						<div class="row user">
+							<div class="col-4 user" >
+								{% if i.9 == ""  %}
+								<a href="/static/farmer/images/no_image.jpg" target="_blank">
+									<img src="/static/farmer/images/no_image.jpg" class="imagePart">
+								</a>
+								{% else %}
+								<a href="/media/{{i.8}}" target="_blank">
+									<img src="/media/{{i.8}}" class="imagePart">
+								</a>
+								{% endif %}
+							</div>
+							<div class="col-8" style="display: grid;">
+								<p> Full Name : {{i.9}} </p>
+								<p> Email : {{i.10}} </p>
+
+							</div>
+						</div>
+					</div>
+
+					</div>
+
+					<br>
+					<h3 class="darkContent"> ✅ {{i.1}} </h3>
+				{% endfor %}
+
+				<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">📝 Post Answer</button>
+
+			</center>
+		</div>
+	</div>
+
+</div>
+<br>
+
+<script type="text/javascript">
+
+	function setDate(){
+          x = new Date();
+          res = x.getDate()+"-"+(x.getMonth()+1)+"-"+x.getFullYear()+"T"+String(x.getHours()).padStart(2, "0")+""+String(x.getMinutes()).padStart(2, "0")+""+String(x.getSeconds()).padStart(2, "0");
+          document.getElementById('timestamp').value=res;
+      }
+
+	var v=document.getElementsByClassName("qtime");
+	for (var i=0; i<v.length; i++) {
+		var s = v[i].textContent.split("T");
+		v[i].innerHTML = "".concat(s[0]," ",s[1].substring(0,2),":",s[1].substring(2,4),":",s[1].substring(4,6));
+	}
+
+	function showUserDetails( d ){
+		if( d.querySelector(".userDetails").style.display == 'block'  ){
+			d.querySelector(".userDetails").style.display = 'none'
+			d.querySelector('abbr').title = "Show User Details";
+		}
+		else{
+			d.querySelector(".userDetails").style.display = 'block' ;
+			d.querySelector('abbr').title = "Hide User Details";
+		}
+	}
+
+</script>
+
+{% endblock %}

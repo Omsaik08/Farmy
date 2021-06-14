@@ -1,0 +1,126 @@
+{% extends 'admin/index.html' %}
+
+{% block title %} Remove Feeds {% endblock %}
+
+
+<!-- Page Heading -->
+{% block content %}
+<style type="text/css">
+    .pagination {
+       display: inline-block;
+   }
+
+   .pagination a {
+      color: black;
+      float: left;
+      padding: 8px 16px;
+      text-decoration: none;
+  }
+
+  .pagination a.active {
+      background-color: #29323c;
+      color: white;
+  }
+
+  .pagination a:hover:not(.active) 
+  {
+    background-color: #ddd;
+}
+</style>  
+<!-- Page Heading -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<center><h1 class="darkNormalContent">Remove Feeds</h1></center>
+{% load static %}
+<div class="card shadow mb-4">
+    <div class="card-body">
+      {% if data == "" %}
+         <center>
+                    <h3>
+                      No Feeds Found
+                    </h3>
+                </center>
+      {% else %}
+
+        <div class="table-responsive">
+                <form class="user" method="POST" action="{% url 'adminApp:remove_feeds' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      <center><label  style="position: relative;font-size: 11px;top: 9px;">Enter Date To Delete Feeds</label></center>
+                      <input type="date" class="form-control form-control-user"  aria-describedby="emailHelp" name="uploading_date">
+                    </div>
+                    <center>
+                  <input type="submit" value="Delete Feeds" class="btn btn-primary btn-user btn-block" style="width: 50%;"></center>
+               </form>
+
+                <br>
+                 <center>
+                    <h3>
+                      <b>OR</b>
+                    </h3>
+                </center>
+              <br>
+            <table class="table table-bordered text-align-center" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <!--<th>Sr.</th>-->
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Date</th>
+                        <th>Source</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in data %}
+                    <tr>
+                          <td>{{i.0}}</td>
+                          <td>{{i.1}}</td>
+                          <td>{{i.7}}</td>
+                          <td>{{i.4}}</td>
+                          <td>
+                            <a href="{% url 'adminApp:remove_feeds' i.0 %}" class="btn btn-primary" onclick="check('Are you sure?')">Delete</a>
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+            {% if data.has_other_pages %}
+              <center>
+                <div class="ml-5 pagination darkNormalContent">
+                  {% if data.has_previous %}
+                  <a class="darkNormalContent" href="?page={{ data.previous_page_number }}">&laquo;</a>
+                  {% else %}
+                  <a class="disabled darkNormalContent">&laquo;</a>
+                  {% endif %}
+                  {% for i in data.paginator.page_range %}
+                  {% if data.number == i %}
+                  <a class="active darkNormalContent">{{ i }} <span class="sr-only">(current)</span></a>
+                  {% else %}
+                  <a class="darkNormalContent" href="?page={{ i }}">{{ i }}</a>
+                  {% endif %}
+                  {% endfor %}
+                  {% if data.has_next %}
+                  <a class="darkNormalContent" href="?page={{ data.next_page_number }}">&raquo;</a>
+                  {% else %}
+                  <a class="disabled darkNormalContent">&raquo;</a>
+                  {% endif %}
+                </div>
+              </center>
+              {% endif %}
+        </div>
+    </div>
+</div>
+<br>
+
+<script type="text/javascript">
+    function check() {
+        if(confirm("Are you sure you want to Delete?"))
+        {
+
+        }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,232 @@
+{% extends 'authority/index.html' %}
+
+{% block title %} All Questions {% endblock %}
+
+{% block content %}
+
+<style type="text/css">
+	.row.user{
+		margin:0;
+		word-break: break-word;
+		justify-content: center;
+	}
+	.container-fluid{
+		padding: 1%;
+		margin: 0;
+	}
+	.btn.btn-primary.btn-user.btn-block{
+		font-size: 18px;
+	}
+	.pagination {
+		display: inline-block;
+	}
+
+	.pagination a {
+		color: black;
+		float: left;
+		padding: 8px 16px;
+		text-decoration: none;
+	}
+
+	.pagination a.active {
+		background-color: #29323c;
+		color: white;
+	}
+
+	.pagination a:hover:not(.active)
+	{
+		background-color: #ddd;
+	}
+	.imagePart{
+		width: 80%;
+		height: 150px;
+	}
+	.col-sm-2{
+		display: flex;
+		align-items: center;
+	}
+	@media only screen and (max-width: 800px){
+		.row .user{
+			display: contents;
+			justify-content: center;
+		}
+		.row.search{
+			display: contents;
+		}
+		.col-2 .user,.col-5,.col-3{
+			max-width: 100%;
+		}
+
+	}
+
+
+</style>
+
+{% load static %}
+
+<div class="container-fluid">
+
+
+	{% if data == 0 %}
+
+	<center>
+		<h3 class="darkNormalContent">No Questions Asked Till Now</h3>
+	</center>
+
+	{% else %}
+	<center>
+		<form method="POST" action=" {% url 'authorityApp:filterQuestions' %} " style="width: 100%;">
+			{% csrf_token %}
+			<div class="row search">
+				<div class="col-5">
+					<div class="input-group">
+						<input type="text" class="form-control small" placeholder="Search for city name..."
+						aria-label="Search" aria-describedby="basic-addon2" name="cityName"
+						value="" >
+
+					</div>
+				</div>
+
+
+				<div class="col-3">
+					<div class="form-group">
+						<select name="qstatus" class="form-control" id="sel1">
+							<option value="all" selected>Show All</option>
+							<option value="answered">Answered</option>
+							<option value="not answered">Not Answered</option>
+						</select>
+					</div>
+				</div>
+
+
+				<div class="col-3">
+					<div class="form-group">
+						<select class="form-control" id="sel1" name="tstatus">
+							<option value="asc" selected>Ascending</option>
+							<option value="desc">Desceding</option>
+						</select>
+					</div>
+				</div>
+
+
+
+			</div>
+			<br>
+				<center>
+					<button class="btn btn-secondary" type="submit">
+							<i class="fas fa-search fa-sm"></i>
+					</button>
+				</center>
+
+		</form>
+	</center>
+
+
+
+	<br>
+	<center>
+		{% for i in data %}
+		<div class="row user darkRowBorder darkNormalContent">
+
+			<div class="col-sm-2 user" >
+
+				{% if i.3 == ""  %}
+				<a href="{% static 'farmer/images/no_image.jpg' %}" target="_blank"><img class="imagePart" src=" {% static 'farmer/images/no_image.jpg' %} "></a>
+				{% else %}
+				<a href="/media/{{i.3}}" target="_blank"> <img class="imagePart" src="/media/{{i.3}}"> </a>
+				{% endif %}
+
+			</div>
+
+			<div class="col-sm-2 user" >
+
+				{% if i.4 == "" %}
+				<a href="{% static 'farmer/images/no_image.jpg' %}" target="_blank"><img class="imagePart" src=" {% static 'farmer/images/no_image.jpg' %} "></a>
+				{% else %}
+				<a href="/media/{{i.3}}" target="_blank"> <img class="imagePart" src="/media/{{i.4}}" > </a>
+				{% endif %}
+
+			</div>
+
+			<div class="col-sm-8 user pt-1" >
+
+				<h3 class="darkContent">{{i.1}} </h3>
+				<p class="darkContent"> {{i.2}} </p>
+
+
+				<p class="qtime" style="text-align: right;"> {{i.6}} </p>
+				<p class="qcity" style="text-align: right;"> {{i.16}} </p>
+				<p id="qstatus" style="text-align: right;"> Question Status : {{i.7}} </p>
+
+
+				<br>
+				<a href="{% url 'authorityApp:show_question' i.0%}" class="btn btn-primary m-2 showButton">See Details</a>
+
+
+
+
+			</div>
+			<br>
+
+		</div>
+		<br>
+		{% endfor %}
+	</center>
+
+
+	{% if data.has_other_pages %}
+	<center>
+		<div class="pagination">
+			{% if data.has_previous %}
+			<a class="darkContent" href="?page={{ data.previous_page_number }}">&laquo;</a>
+			{% else %}
+			<a class="disabled darkContent">&laquo;</a>
+			{% endif %}
+			{% for i in data.paginator.page_range %}
+			{% if data.number == i %}
+			<a class="active darkHeading ">{{ i }} <span class="sr-only">(current)</span></a>
+			{% else %}
+			<a class="darkContent" href="?page={{ i }}">{{ i }}</a>
+			{% endif %}
+			{% endfor %}
+			{% if data.has_next %}
+			<a class="darkContent " href="?page={{ data.next_page_number }}">&raquo;</a>
+			{% else %}
+			<a class="disabled darkContent">&raquo;</a>
+			{% endif %}
+		</div>
+	</center>
+	{% endif %}
+
+	{% endif %}
+
+</div>
+
+<script type="text/javascript">
+
+	var v=document.getElementsByClassName("qtime");
+	for (var i=0; i<v.length; i++) {
+		var s = v[i].textContent.split("T");
+		v[i].innerHTML = "Question Time : ".concat(s[0]," ",s[1].substring(0,2),":",s[1].substring(2,4),":",s[1].substring(4,6));
+
+	}
+
+	var qc=document.getElementsByClassName("qcity");
+	for (var i=0; i<qc.length; i++) {
+		var s = qc[i].textContent.split(",");
+		qc[i].innerHTML = "Question Asked From : ".concat( s[s.length - 2] );
+
+	}
+
+	function check(){
+		if( confirm("Do you really want to delete this Question ?") ){
+		}
+		else{
+			window.location.href = " url 'farmerApp:my_questions' ";
+		}
+	}
+
+</script>
+
+
+{% endblock %}

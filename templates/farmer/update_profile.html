@@ -1,0 +1,193 @@
+{% extends 'farmer/index.html' %}
+
+{% block title %} Update Profile {% endblock %}
+
+
+<!-- Page Heading -->
+{% block content %}
+
+<style>
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 700px;
+    margin: auto;
+    border-radius: 2pc;
+    font-family: arial;
+  }
+
+  .name{
+   color: #22cd92;
+ }
+
+ .main
+ {
+   margin: 10px;
+   font-size: 20px;
+ }
+</style>
+
+
+{% if errors %}
+{% for i in errors %}
+
+{% if i == 'fileType' %}
+<script type="text/javascript">
+  alert('Please select a valid file type');
+  window.location.href = " {% url 'farmerApp:update_profile' %} ";
+</script>
+{% endif %}
+
+{% endfor %}
+
+{% endif %}
+
+
+
+{% load static %}
+
+
+<h2 style="text-align:center" class="darkContent">Update Profile</h2><br>
+<div class="card p-2">  
+
+  {% for i in data %}
+  <form class="user" method="POST" action=" {% url 'farmerApp:update_profile' %} " enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-group upload-photo">
+      
+      <center>
+        {% if i.profile_photo == "" %}
+        <img src=" {% static 'farmer/images/no_image.jpg' %} " style="height: 112%;width: 112px" >  
+        {% else %}
+        <img class="p-5" src="/media/{{i.profile_photo}}" style="width:100%">
+        {% endif %}
+      </center>
+
+      <input type="text" name="old_profile_photo" value="{{i.profile_photo}}" style="display: none;">
+      
+      
+      <center>
+        <input type="file" id="fileUpload" name="profile_photo" style="display: none;"><br>
+        <a class="btn btn-primary" id="img" onclick="updateImage()"><i class="icon-pencil" ></i></a><br>
+      </center>
+    </div>                               
+
+
+
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label  style="position: relative;font-size: 11px;top: 9px;color: #3ea931;">First Name</label>
+          
+          <input type="text" class="form-control form-control-user" name="first_name" value="{{i.first_name}}">
+        </div>  
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label  style="position: relative;font-size: 11px;top: 9px;color: #3ea931;">Last Name</label>
+          <input type="text" class="form-control form-control-user" name="last_name" value="{{i.last_name}}">
+        </div>  
+      </div>
+    </div>
+
+
+
+    <div class="form-group">
+      <label  style="position: relative;font-size: 11px;top: 9px;color: #3ea931;">Email</label>
+      <input type="text" class="form-control form-control-user" name="email" value="{{i.email}}" readonly>
+    </div>  
+
+    <div class="form-group">
+      <label  style="position: relative;font-size: 11px;top: 9px;color: #3ea931;">Mobile Number</label>
+      <input type="text" class="form-control form-control-user" id="mobilenumber" name="mobile_no" value="{{i.mobile_no}}"  readonly>
+    </div>  
+
+    <div class="form-group">
+      <label  style="position: relative;font-size: 11px;top: 9px;color: #3ea931;">Date Of Birth</label>
+      <input type="date" class="form-control form-control-user" id="DOB" name="dob" value="{{i.dob}}">
+    </div>      
+
+    <div class="form-group">
+      <label   style="position: relative;font-size: 11px;top: 9px;color: #3ea931;">Enter Address</label>
+      <input type="text" class="form-control form-control-user" id="address" name="address" required>
+    </div>
+
+
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label   style="position: relative;font-size: 11px;top: 9px;color: #3ea931;">Enter City</label>
+          <input type="text" class="form-control form-control-user" id="city"  name="city" required>
+        </div>    
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label   style="position: relative;font-size: 11px;top: 9px;color: #3ea931;">Enter State</label>
+          <input type="text" class="form-control form-control-user" id="state" name="state" required>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      var s="{{i.address}}";
+        //alert(s);
+        var res=s.split(",");
+        //alert(res[0]);
+
+        document.getElementById('address').value= res.slice( 0,res.length-2 ) ;
+        document.getElementById('city').value= res[res.length-2] ;
+        document.getElementById('state').value= res[res.length-1] ;
+      </script>
+
+
+      <div class="form-group gender">
+        <label   style="position: relative;font-size: 11px;color: #3ea931;">Gender</label>
+
+        <input type="text" name="gender" placeholder="Male or Female or Prefer not to say" value="{{i.gender}}">
+
+      </div>
+
+      <input type="text" name="timestamp" id="timestamp" hidden>
+
+      <center><input type="submit" class="btn btn-primary btn-user btn-block" value="Update Profile" onclick="setDate()" style="width: 80%;"></center>
+    </form>
+    {% endfor %}
+
+    
+  </div>
+  <br>
+  
+
+  <script type="text/javascript">
+
+    function setDate(){
+      x = new Date();
+      res = x.getDate()+"-"+(x.getMonth()+1)+"-"+x.getFullYear()+"T"+String(x.getHours()).padStart(2, "0")+""+String(x.getMinutes()).padStart(2, "0")+""+String(x.getSeconds()).padStart(2, "0");
+      document.getElementById('timestamp').value=res;
+
+
+      var addr = document.getElementById('address').value + ',' + document.getElementById('city').value + ',' + document.getElementById('state').value;
+
+      document.getElementById('address').value =  addr;
+
+    }
+
+
+    function updateImage()
+    {
+      var s = document.getElementById('fileUpload')
+      if( s.style.display == 'none' ){
+        document.getElementById('fileUpload').style.display="block";
+      }
+      else{
+        document.getElementById('fileUpload').style.display="none";
+      }
+
+    }
+  </script>
+
+
+
+
+
+  {% endblock %}

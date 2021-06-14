@@ -1,0 +1,125 @@
+{% extends 'farmer/index.html' %}
+
+{% block title %} About Us {% endblock %}
+
+
+{% block content %}
+{% load static %}
+
+
+<div class="hero-wrap hero-bread" style="background-image: url(' {% static 'farmer/images/about.jpg' %} ');">
+
+  <div class="container">
+    <div class="row no-gutters slider-text align-items-center justify-content-center">
+      <div class="col-md-9 ftco-animate text-center">
+        <div class="back">
+         <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home / </a></span> <span>About us</span></p>
+         <h1 class="mb-0 bread">About us</h1>
+
+         <!--<p class="intro-subtitle"><span class="text-slider-items">AND,THIS IS MY RESUME ..</span><strong class="text-slider"></strong>-->
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+
+ <section class="ftco-section testimony-section">
+  <div class="container">
+    <div class="row justify-content-center mb-5 pb-3">
+      <div class="col-md-7 heading-section ftco-animate text-center">
+       <span class="subheading">Testimony</span>
+       <h2 class="mb-4">Our Team</h2>
+       <p class="darkNormalContent">Coming together is a beginning, staying together is progress, and working together is success.</p>
+     </div>
+   </div>
+   <div class="row ftco-animate">
+    <div class="col-md-12">
+      <div class="carousel-testimony owl-carousel">
+
+        <div class="item darkRowBorder">
+          <div class="testimony-wrap p-4 pb-5">
+
+              <a href="{% static 'farmer/images/hemant.jpg' %}" target="_blank">
+                <div class="user-img mb-5" style="background-image: url( {% static 'farmer/images/hemant.jpg' %}">
+                  <span class="quote d-flex align-items-center justify-content-center">
+                    <i class="icon-quote-left"></i>
+                  </span>
+                </div>
+              </a>
+
+            <div class="text text-center">
+              <p class="mb-5 pl-4 line darkNormalContent" style="color: black;">Coming together is a beginning, staying together is progress, and working together is success.</p>
+              <h3><p class="darkNormalContent" >Hemant Dyavarkonda</p></h3>
+              <span class="position darkNormalContent" style="color: black;">UI Designer</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item darkRowBorder">
+          <div class="testimony-wrap p-4 pb-5">
+
+            <a href="{% static 'farmer/images/omsai.jpg' %}" target="_blank">
+              <div class="user-img mb-5" style="background-image: url( {% static 'farmer/images/omsai.jpg' %})">
+                <span class="quote d-flex align-items-center justify-content-center">
+                  <i class="icon-quote-left"></i>
+                </span>
+              </div>
+            </a>
+
+            <div class="text text-center">
+              <p class="mb-5 pl-4 line darkNormalContent" style="color: black;">Coming together is a beginning, staying together is progress, and working together is success.</p>
+              <h3><p class="darkNormalContent" >Omsai Kalekar</p></h3>
+              <span class="position darkNormalContent" style="color: black;">Backend Developer</span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="item darkRowBorder">
+          <div class="testimony-wrap p-4 pb-5">
+
+            <a href="{% static 'farmer/images/mahesh.JPG' %}" target="_blank">
+              <div class="user-img mb-5" style="background-image: url( {% static 'farmer/images/mahesh.JPG' %})">
+                <span class="quote d-flex align-items-center justify-content-center">
+                  <i class="icon-quote-left"></i>
+                </span>
+              </div>
+            </a>
+
+            <div class="text text-center">
+              <p class="mb-5 pl-4 line darkNormalContent" style="color: black;">Coming together is a beginning, staying together is progress, and working together is success.</p>
+              <h3><p class="darkNormalContent" >Mahesh Rachha</p></h3>
+              <span class="position darkNormalContent" style="color: black;">Interface Designer</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item darkRowBorder">
+          <div class="testimony-wrap p-4 pb-5">
+
+            <a href="{% static 'farmer/images/venu.jpg' %}" target="_blank">
+              <div class="user-img mb-5" style="background-image: url( {% static 'farmer/images/venu.jpg' %})">
+                <span class="quote d-flex align-items-center justify-content-center">
+                  <i class="icon-quote-left"></i>
+                </span>
+              </div>
+            </a>
+
+            <div class="text text-center">
+              <p class="mb-5 pl-4 line darkNormalContent" style="color: black;">Coming together is a beginning, staying together is progress, and working together is success.</p>
+              <h3><p class="darkNormalContent" >Venu Bura</p></h3>
+              <span class="position darkNormalContent" style="color: black;">Backend Developer</span>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+
+
+{% endblock %}

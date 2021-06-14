@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>FARMY Sign Up</title>
+  {% load static %}
+      <link rel="icon" href=" {% static 'farmer/images/mainlogo.png' %} " type="image/x-icon">
+
+  <!-- Custom fonts for this template-->
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+<script src="https://kit.fontawesome.com/1c2c2462bf.js" crossorigin="anonymous"></script>
+  <!-- Custom styles for this template-->
+  
+  <link href="{% static 'farmer/css/sb-admin-2.min.css'%} " rel="stylesheet">
+
+
+  <!--<link href="css/style.css" rel="stylesheet">-->
+  <style >
+.c {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.c input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.c:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.c input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.c input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.c .checkmark:after {
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+.form-group.upload-photo {
+    text-align: center;
+}
+.form-group.gender {
+    top: 10px;
+    position: relative;
+}
+</style>
+
+</head>
+
+<body class="bg-gradient-dark">
+
+  <div class="container">
+
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+
+      <div class="col-xl-10 col-lg-12 col-md-9">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+              
+              <div class="col-lg-12">
+                <div class="p-5">
+                  <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4"><img src="{% static 'farmer/images/mainlogo.png'%}" style="    position: relative;top: -0.5rem;left: 0rem;width: 20%;">Here we go!</h1>
+                  </div>
+                  <form class="user" method="POST" action=" {% url 'farmerApp:register' %} " enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group upload-photo">
+                      <label   style="position: relative;font-size: 11px;top: 9px;color: #3ea931;">Upload Photo</label>
+                      <input type="file" id="fileUpload" name="profile_photo" accept="image/x-png,image/gif,image/jpeg">
+                    </div>                                        
+
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label  style="position: relative;font-size: 11px;top: 9px;color: #3ea931;">First Name</label>
+                        <input type="text" class="form-control form-control-user" id="firstname" name="first_name" placeholder="eg. Sachin" required>
+                      </div>  
+                    </div>
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label  style="position: relative;font-size: 11px;top: 9px;color: #3ea931;">Last Name</label>
+                        <input type="text" class="form-control form-control-user" id="lastname"  name="last_name" placeholder="eg. Patil" required>
+                      </div>  
+                    </div>
+                  </div>
+
+                    
+
+                    <div class="form-group">
+          <label   style="position: relative;font-size: 11px;top: 9px;color: #3ea931;">Email ID</label>
+                      <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" name="email" oninput="checkMail(this);" placeholder="eg. sachinpatil@gmail.com" required>
+                      <label  id="email_label" style="display: none;color: red">asdf</label>
+                    </div>
+          
+
+
+
+                    <div class="form-group">
+          <label   style="position: relative;font-size: 11px;top: 9px;color: #3ea931;">Enter Password</label>
+                      <input type="password" class="form-control form-control-user"  id="password" placeholder="*********" 
+                       name="password" oninput="checkPassword(this);" required>
+                     <span onclick="toggle()" style="position: relative; top: -35px; left: 90%;">
+                            <i class="far fa-eye" onclick="myFunction(this)"></i>
+                      </span>
+                    </div>
+                    <label  id="pass_label" style="display: none;color: red">asdf</label>
+                    
+                    <div class="form-group">
+          <label   style="position: relative;font-size: 11px;top: 9px;color: #3ea931;">Mobile Number</label>
+                      <input type="number" class="form-control form-control-user" id="mobilenumber" name="mobile_no" placeholder="eg. 9859585756" oninput="checkMobile(this);" required>
+                      <label  id="mobile_label" style="display: none;color: red"></label>
+                    </div> 
+          
+                    <div class="form-group">
+          <label   style="position: relative;font-size: 11px;top: 9px;color: #3ea931;">Enter Address</label>
+                      <input type="text" class="form-control form-control-user" id="address" name="address" placeholder="eg. 900,Datta Nagar" required>
+                    </div>
+
+
+
+
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="form-group">
+                          <label   style="position: relative;font-size: 11px;top: 9px;color: #3ea931;">Enter City</label>
+                          <input type="text" class="form-control form-control-user" id="city"  name="city" placeholder="eg. Solapur" required>
+                        </div>    
+                      </div>
+                      <div class="col-6">
+                        <div class="form-group">
+                          <label   style="position: relative;font-size: 11px;top: 9px;color: #3ea931;">Enter State</label>
+                          <input type="text" class="form-control form-control-user" id="state" name="state" placeholder="eg. Maharashtra" required>
+                        </div>
+                      </div>
+                    </div>
+
+
+                      <div class="form-group">
+          <label   style="position: relative;font-size: 11px;color: #3ea931;">Date Of Birth</label>
+                      <input type="date" class="form-control form-control-user" id="DOB" name="dob" placeholder="eg. 11/11/2000" required>
+                    </div>                                      
+
+              <div class="form-group gender">
+                <label   style="position: relative;font-size: 11px;color: #3ea931;">Gender</label>
+                
+                <input type="text" name="gender" required placeholder="Male or Female or Prefer not to say" placeholder="eg. Male">
+                  
+              </div>
+
+                    <p class="random-password" style="display: none;"></p>
+                    </div>
+                    <input type="text" name="account_status" value="active" hidden>
+                    <input type="text" name="timestamp" id="timestamp" hidden>
+
+                    <input type="submit" class="btn btn-primary btn-user btn-block" value="SIGN UP" onclick="setDate()">
+                      <hr>
+          <div class="text-center">
+          <a class="small" href="{% url 'farmerApp:login' %}">Already have an Account? Login!</a>
+          </div>
+              
+          <hr>   
+            <img src="{% static 'farmer/images/grass.jpg'%}" style="position: relative;top: 3rem;left: -3rem;" width="700" height="100">
+            
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <center><div id="google_translate_element"></div></center>
+  <script src="{% static 'farmer/js/translate.js' %}"></script>
+<script>
+        //Show and Hide password
+        var state = false;
+        function toggle(){
+            if(state){
+                password.setAttribute("type","password");
+                state=false;
+            }
+            else{
+                password.setAttribute("type","text");
+                state=true;
+            }
+        }
+        function myFunction(show){
+            show.classList.toggle("fa-eye-slash");
+        }
+</script>
+
+  <!-- Bootstrap core JavaScript-->
+
+  <!-- Custom scripts for all pages-->
+  <script src="{% static 'js/sb-admin-2.min.js'%}"></script>
+
+      <script>
+        function checkMail(email){
+    var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+        if (reg.test(email.value) == false) 
+        {
+           document.getElementById('email_label').innerHTML ='Invalid Email Address';
+           document.getElementById('email_label').style.display = 'block';
+
+            return false;
+        }
+        document.getElementById('email_label').style.display = 'none';
+        return true;
+  }
+        function setDate(){
+          x = new Date();
+          res = x.getDate()+"-"+(x.getMonth()+1)+"-"+x.getFullYear()+"T"+String(x.getHours()).padStart(2, "0")+""+String(x.getMinutes()).padStart(2, "0")+""+String(x.getSeconds()).padStart(2, "0");
+          document.getElementById('timestamp').value=res;
+
+
+
+          var addr = document.getElementById('address').value + ',' + document.getElementById('city').value + ',' + document.getElementById('state').value;
+
+          document.getElementById('address').value =  addr;
+          //alert(addr);
+
+        }
+
+        function checkMobile(mobile){
+    var reg = /^[1-9]{1}[0-9]{9}$/;
+
+    if( (mobile.value).length !=10 ){
+      document.getElementById('mobile_label').innerHTML ='Mobile Number Must of 10 digits';
+          document.getElementById('mobile_label').style.display = 'block';
+
+          return false;
+    }
+    else{
+      if( reg.test(mobile.value) == false ){
+        document.getElementById('mobile_label').innerHTML ='Enter Correct Mobile No.';
+             document.getElementById('mobile_label').style.display = 'block';
+
+              return false;
+          }
+          document.getElementById('mobile_label').style.display = 'none';
+      return true;
+    }
+
+  }
+    function checkPassword(password) {
+    var p = document.getElementById('password').value,
+        errors = [];
+    if (p.length < 8) {
+        document.getElementById('pass_label').style.display = 'block';
+        document.getElementById("pass_label").innerHTML="Your password must be at least 8 characters"; 
+    }
+    else{
+      document.getElementById('pass_label').style.display = 'none';
+    }
+    if (p.search(/[a-z]/) < 0) {
+      document.getElementById('pass_label').style.display = 'block';
+      document.getElementById("pass_label").innerHTML="Your password must contain at least one letter.";
+    }
+    else{
+      document.getElementById('pass_label').style.display = 'none';
+    }
+    if (p.search(/[0-9]/) < 0) {
+      document.getElementById('pass_label').style.display = 'block';
+        document.getElementById("pass_label").innerHTML="Your password must contain at least one digit."; 
+    }
+    else{
+      document.getElementById('pass_label').style.display = 'none';
+    }
+    if (p.length == 0){
+      document.getElementById('pass_label').style.display = 'none';
+      return false;
+    }
+    return true;
+}
+        
+      </script>
+
+</body>
+
+</html>

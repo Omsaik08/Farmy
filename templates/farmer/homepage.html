@@ -1,0 +1,243 @@
+{% extends 'farmer/index.html' %}
+
+{% block title %} Homepage {% endblock %}
+
+{% block content %}
+
+
+<style type="text/css">
+
+	iframe{
+		padding: 2%;
+		width: 80%;
+	}
+
+.imagePart{
+    width: 80%;
+      height: 100px;
+  }
+
+	.row.user{
+		margin: 0;
+		word-break: break-word;
+		width:100%;
+	}
+	.col-sm-4.user,.col-4.user{
+
+		padding: 2% 1% 2% 1%;
+
+		display: grid;
+	}
+
+	.col-4.user{
+		display: flex;
+    align-items: center;
+	}
+
+
+	.col-sm-8.user{
+
+		padding-top: 2%;
+
+		display: grid;
+	}
+	.container-fluid{
+		padding: 1%;
+		margin: 0;
+	}
+	.btn.btn-primary.btn-user.btn-block{
+		font-size: 18px;
+	}
+
+	@media only screen and (max-width:800px)
+	{
+		.col-sm-8 .user{
+			display: contents;
+			text-align: center;
+		}
+
+	}
+</style>
+{% load static %}
+
+
+{% if errors %}
+{% for i in errors %}
+
+{% if i == 'fileType' %}
+<script type="text/javascript">
+	alert('Please select a valid file type');
+	window.location.href = " {% url 'farmerApp:ask_query' %} ";
+</script>
+{% endif %}
+
+
+{% endfor %}
+
+{% endif %}
+
+
+<section id="home-section" class="hero">
+	<div class="home-slider owl-carousel">
+		<div class="slider-item" style="background-image: url({% static 'farmer/images/ho2.jpg'%});">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+
+					<div class="col-md-12 ftco-animate text-center">
+						<h3 class="mb-2" style="color: white;">Farmy</h3>
+						<h2 class="subheading mb-4">Have a Question? Ask and Get it Solved!</h2>
+						<!--<p><a class="btn btn-primary">View Details</a></p>-->
+						<p><a href="{% url 'farmerApp:ask_query' %}" class="btn btn-primary">Ask and get it solved</a></p>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="slider-item" style="background-image: url({% static 'farmer/images/ho.jpg'%});">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+
+					<div class="col-sm-12 ftco-animate text-center">
+						<h3 class="mb-2" style="color: white;">Farmy</h3>
+						<h2 class="subheading mb-4">Have a Question? Get is Solved!</h2>
+						<p><a href="#" class="btn btn-primary">Ask and get it solved</a></p>
+						<!--<p><a  class="btn btn-primary">View Details</a></p>-->
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<br>
+
+<div class="container-fluid">
+	<div class="row user darkRowBorder">
+		<div class="col-sm-4 user" >
+			<center><h3 class="text darkHeading">Videos For You!</h3></center><hr>
+			<h6 class="text darkContent">This section contains useful videos regarding crops,pesticides,fertilizers and genereal information about farming.</h6>
+			<a href=" {% url 'farmerApp:videos' %} " class="btn btn-primary btn-user btn-block">Read more</a><br>
+		</div>
+		<div class="col-sm-8 user" >
+
+			<center>
+			    {% if vdata == "" %}
+					<h3 class="darkNormalContent">No Videos Added Till Now</h3>
+				{% else %}
+				<div class="row">
+
+					{% for i in vdata %}
+					<div class="col-6">
+						<iframe  src="{{i.2}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						<br>
+						<a class="btn btn-primary darkNormalContent" href="{{i.2}}" target="_blank">Open Video</a>
+					</div>
+					{% endfor %}
+
+				</div>
+				{% endif %}
+				<br>
+
+
+
+			</center>
+
+		</div>
+	</div>
+
+
+	<br>
+
+	<div class="row user darkRowBorder">
+		<div class="col-sm-4 user" >
+			<center><h3 class="text darkHeading">News Feed For You!</h3></center><hr>
+			<h6 class="text darkContent">This section brings you the latest news on Agriculture and also helps to find the latest agriculture information, farming news, markets, & new products information.</h6>
+			<a href="{% url 'feedsApp:homepage' %}" class="btn btn-primary btn-user btn-block">Read more</a><br>
+		</div>
+		<div class="col-sm-8 user" >
+
+
+			<center>
+				{%for d in feeds_data %}
+				<div class="row user darkRowBorder">
+					<div class="col-4 user" style="max-width: 100%;">
+						<img src="{{d.thumbnail}}" class="imagePart">
+					</div>
+					<div class="col-8 user">
+						<h5 class="darkNormalContent"><p>{{d.title}}</p></h5>
+
+						<p><a href="{{d.link}}" class="btn btn-primary py-2 px-3" target="_blank">Read more</a></p>
+
+					</div>
+
+				</div>
+				<br>
+				{% endfor %}
+			</center>
+
+
+		</div>
+	</div>
+
+
+
+	<br>
+
+	<div class="row user darkRowBorder">
+		<div class="col-sm-4 user" >
+			<center><h3 class="text darkHeading">All Questions</h3></center><hr>
+			<h6 class="text darkContent">This section brings you the top most questions from our platform.</h6>
+			<a href="{% url 'farmerApp:all_questions' %}" class="btn btn-primary btn-user btn-block" style="padding: 0;margin: 0;">Read more</a><br>
+		</div>
+		<div class="col-sm-8 user" >
+
+			<center>
+				{% if questions_data == 0 %}
+				<h3 class="darkContent"> No Questions Asked Till Now </h3>
+				{% else  %}
+				{%for d in questions_data %}
+				<div class="row user darkRowBorder">
+					<div class="col-4 user" style="max-width: 100%;">
+						{% if d.3 == "" and d.4 == "" %}
+
+							<img src=" {% static 'farmer/images/no_image.jpg' %} "  class="imagePart" >
+
+						{% else %}
+
+						{% if d.3 != "" %}
+
+							<img src="/media/{{d.3}}" class="imagePart">
+
+						{% else %}
+
+							<img src="/media/{{d.4}}" class="imagePart">
+
+						{% endif%}
+
+						{% endif %}
+					</div>
+					<div class="col-8 user">
+						<h5 class="darkNormalContent">Que. {{d.1}}</h5>
+						<p><a href=" {% url 'farmerApp:show_question' d.0 %} " class="btn btn-primary py-2 px-3" >Read more</a></p>
+						<p style="text-align: right;" class="darkNormalContent">by - {{d.6}} {{d.7}} </p>
+					</div>
+				</div>
+				<br>
+				{% endfor %}
+				{% endif %}
+
+
+
+			</center>
+
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

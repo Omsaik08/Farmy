@@ -1,0 +1,209 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Authority Login</title>
+  {% load static %}
+  <link rel="icon" href=" {% static 'farmer/images/mainlogo.png' %} " type="image/x-icon">
+
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <script src="https://kit.fontawesome.com/1c2c2462bf.js" crossorigin="anonymous"></script>
+  <!-- Custom styles for this template-->
+
+  <link href="{% static 'farmer/css/sb-admin-2.min.css'%} " rel="stylesheet">
+  <!--<link href="css/style.css" rel="stylesheet">-->
+
+</head>
+
+
+{% if errors %}
+{% for i in errors %}
+{% if i == 'email' %}
+<script type="text/javascript">
+  alert("Email is already in use");
+  window.location.href = " {% url 'authorityApp:register' %} ";
+</script>
+
+{% elif i == 'mobile_no' %}
+<script type="text/javascript">
+  alert("Mobile Number is already in use");
+  window.location.href = " {% url 'authorityApp:register' %} ";
+</script>
+{% endif %}
+
+<!--{% if i == 'Not registered' %}
+<script type="text/javascript">
+  alert('Email/Mobile number is not registered');
+  window.location.href = " {% url 'authorityApp:register' %} ";
+</script>
+{% elif i == 'Password is Incorrect' %}
+<script type="text/javascript">
+  alert('Password is Incorrect');
+  window.location.href = " {% url 'authorityApp:login' %} ";
+</script>
+{% endif %}
+{% if i == 'blocked' %}
+<script type="text/javascript">
+  alert("Your account is currently deactivated\nTo activate Please contact us !");
+  window.location.href = " {% url 'farmerApp:contact' %} ";
+</script>
+{% endif %}
+-->
+{% if i == 'fileType' %}
+<script type="text/javascript">
+  alert('Please select a valid file type');
+  window.location.href = " {% url 'authorityApp:register' %} ";
+</script>
+{% endif %}
+
+
+
+{% endfor %}
+
+{% endif %}
+
+
+<body class="bg-gradient-dark">
+  <div class="container">
+
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+
+      <div class="col-xl-10 col-lg-12 col-md-9">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+              <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+              <div class="col-lg-6">
+                <div class="p-5">
+                  <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4"><img src="{% static 'farmer/images/mainlogo.png'%}" style="    position: relative;top: -0.5rem;left: 0rem;width: 20%;">Welcome Back</h1>
+                  </div>
+
+                  <!--<form class="user" method="POST" action=" {% url 'authorityApp:login' %} ">
+                    {% csrf_token %}-->
+                    <div class="user">
+                    <div class="form-group">
+                      <label  style="position: relative;font-size: 11px;top: 9px;color: #3ea931;">Email/Mobile No</label>
+                      <input type="text" class="form-control form-control-user" id="username" aria-describedby="emailHelp" name="username">
+                    </div>
+                    <div class="form-group">
+                      <label  style="position: relative;font-size: 11px;top: 9px;color: #3ea931;">Password</label>
+                      <input type="password" class="form-control form-control-user" name="password" id="password"
+                      autocomplete="off" >
+
+                      <span onclick="toggle()" style="position: relative; top: -35px; left: 90%;">
+                        <i class="far fa-eye" onclick="myFunction(this)"></i>
+                      </span>
+                    </div>
+                    <div class="form-group">
+                      <div class="custom-control custom-checkbox small">
+                        <input type="checkbox" class="custom-control-input" id="customCheck">
+                        <label class="custom-control-label" for="customCheck">Remember Me</label>
+                      </div>
+                    </div>
+
+                    <input type="submit" value="Login" class="btn btn-primary btn-user btn-block" id="loginbutton">
+                    </div>
+                  <!--</form>-->
+
+
+
+                <hr>
+                <div class="text-center">
+                  <a class="small" href=" {% url 'authorityApp:forgot' %} ">Forgot Password ?</a>
+                </div>
+                <div class="text-center">
+                  <a class="small" href=" {% url 'authorityApp:register' %} ">Create an Account  !</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+<script>
+        //Show and Hide password
+        var state = false;
+        function toggle(){
+          if(state){
+            password.setAttribute("type","password");
+            state=false;
+          }
+          else{
+            password.setAttribute("type","text");
+            state=true;
+          }
+        }
+        function myFunction(show){
+          show.classList.toggle("fa-eye-slash");
+        }
+      </script>
+      <!-- Bootstrap core JavaScript-->
+
+
+      <!-- Custom scripts for all pages-->
+      <script src="{% static 'js/sb-admin-2.min.js'%}"></script>
+      <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+      <script type="text/javascript">
+
+        {% ifequal status 0 %}
+        alert( "Registrations was Unsuccessful" );
+        window.location.href = " {% url 'authorityApp:register' %} ";
+        {% endifequal %}
+
+
+
+        $("#loginbutton").click(function(){
+          var username = $("#username").val();
+          var password = $("#password").val();
+
+          $.ajax({
+            url:" {% url 'authorityApp:login' %}",
+            data: {
+            'username': username,
+            'password':password,
+            },
+            dataType: 'json',
+            success: function (data) {
+              if(data.status==0){
+                alert("Your account is not registered.")
+                window.location.href="{% url 'authorityApp:register' %}"
+              }
+              if(data.status==1){
+                alert("Login successful...");
+                window.location.href="{% url 'authorityApp:homepage' %}"
+              }
+              if(data.status==2){
+                alert("Your account is currently deactivated\nTo activate Please contact us ");
+                window.location.href = " {% url 'farmerApp:contact' %} ";
+              }
+              if(data.status==3)
+                alert("Password is Incorrect.")
+            }
+
+          });
+      });
+
+
+      </script>
+    </body>
+
+    </html>

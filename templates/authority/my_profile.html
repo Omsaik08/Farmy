@@ -1,0 +1,91 @@
+{% extends 'authority/index.html' %}
+
+{% block title %} My Profile {% endblock %}
+
+
+    <!-- Page Heading -->
+    {% block content %}
+
+<style>
+.card {
+  max-width: 700px;
+  margin: auto;
+  border-radius: 2pc;
+  text-align: center;
+
+  font-family: arial;
+}
+
+.name{
+  color: #22cd92;
+}
+
+.main
+{
+  margin: 10px;
+  font-size: 20px;
+}
+abbr,a{
+  text-decoration: none  !important;
+}
+
+</style>
+{% load static %}
+
+<h2 style="text-align:center">My Profile</h2><br>
+
+<div class="card darkRowBorder">
+  {% for i in data %}
+
+    <center>
+      {% if i.profile_photo == "" %}
+      <img src=" {% static 'farmer/images/no_image.jpg' %} " style="height: 112%;width: 112px" >
+    {% else %}
+      <img class="p-5" src="/media/{{i.profile_photo}}" style="width:100%">
+    {% endif %}
+    </center>
+
+
+    <h1 class="name darkNormalContent">{{i.full_name}}</h1>
+    <p style="color:black;" class="darkNormalContent">{{i.gender}}</p>
+    <p style="color:black;" class="darkNormalContent">{{i.dob}}</p>
+    <div style="margin: 20px 0;">
+
+      <abbr title="{{i.email}}">
+        <a class="main darkNormalContent" href="mailto:{{i.email}}" disable><i class="icon-envelope"></i></a>
+      </abbr>
+      <abbr title="{{i.mobile_no}}">
+        <a class="main darkNormalContent" href="tel:{{i.mobile_no}}"><span class="icon-phone"></span></a>
+      </abbr>
+      <abbr title="{{i.address}}">
+        <a class="main darkNormalContent" ><i class="icon-map-marker"></i></a>
+      </abbr>
+
+    </div>
+  {% endfor %}
+</div>
+
+<br>
+<center><button class="btn btn-primary" onclick="update()">Update</button>
+<button class="btn btn-primary" id="delete" onclick="check()">Delete Account</button></center>
+<br>
+
+
+<script type="text/javascript">
+  function update()
+  {
+    window.location.href="{% url 'authorityApp:update_profile'%}"
+  }
+  function check(){
+    if( confirm("Do you really want to delete your account :( ?") ){
+      window.location.href = " {% url 'authorityApp:delete_account' %} ";
+    }
+    else{
+      window.location.href = " {% url 'authorityApp:my_profile' %} ";
+    }
+  }
+
+</script>
+
+
+    {% endblock %}

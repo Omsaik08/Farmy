@@ -1,0 +1,111 @@
+{% extends 'farmer/index.html' %}
+
+{% block title %} My Cities {% endblock %}
+
+{% block content %}
+
+{% load static %}
+<style type="text/css">
+	
+	.my_cities{
+	background-image: url({% static 'farmer/images/weatherbg.jpg' %});
+	background-size: 100% 100%;
+	padding: 5%;
+}
+
+.my_cities table.demo{
+	position: relative;
+	width: 50%;
+    background:rgba(0,0,0,0.5);
+    color: white;
+}
+
+.table-cell.data{
+	text-decoration: none;
+    width: 50%;
+    padding: 0.5%;
+    margin: 0.1%;
+    color: black;
+    background-image: linear-gradient(to right, #00ff00, white);
+}
+
+.table-cell.data:hover{
+	text-decoration: none;
+    border: 1px solid black;
+    width: 50%;
+    padding: 0.2%;
+    margin: 0.08%;
+    color: black;
+    background-image: linear-gradient(to left, #00ff00, white);
+}
+
+.btn.add_city{
+	
+	position: static;
+	bottom:10px;
+    
+}
+
+.demo{
+	width: 40%;
+	
+}
+
+@media only screen and (max-width: 800px){
+	input[type=submit]{
+		    margin-top: 5%;
+	}
+}
+
+</style>
+
+
+			<center>
+				<div class="my_cities" id="my_cities">
+					<strong><b style="color: white; font-size: 25px;">My Cities</b></strong>
+					<table class="table demo" id='demo'>
+						<tbody>
+							{% if data.count == 0 %}
+								<tr><td>No city</td></tr>
+							{% else %}
+								{% for i in data %}
+
+						 <a class="table-row" href=" {% url 'weatherApp:homepage' i.cities%} " style="text-decoration: none;">
+						        <div class="table-cell data">{{i.cities}}</div>
+						 </a>
+
+								{% endfor %}
+							{% endif %}
+							
+						</tbody>		
+					</table>
+					
+					<br><br>
+					<form class="form-inline demo" action="{% url 'weatherApp:homepage' %}" method="POST">
+						{% csrf_token %}
+						
+						<input type="text" name="cities" class="form-control" placeholder="Enter New City" required>&nbsp&nbsp
+						<input type="text" name="timestamp" id="timestamp" hidden>
+						<input type="number" name="farmer_id" value="{{request.session.farmer_id}}" hidden>
+						<br>
+						<input type="submit" class="btn btn-primary" onclick="setDate()">
+					</form>
+<br>
+					<button class="btn btn-primary"><a href="{% url 'weatherApp:homepage' %}" style="color: white;">Back</a></button>
+
+				</div>
+			</center>
+
+			<script>
+				function setDate(){
+					x = new Date();
+					res = x.getDate()+"-"+(x.getMonth()+1)+"-"+x.getFullYear()+"T"+String(x.getHours()).padStart(2, "0")+""+String(x.getMinutes()).padStart(2, "0")+""+String(x.getSeconds()).padStart(2, "0");
+					document.getElementById('timestamp').value=res;
+				}
+				
+			</script>
+
+			
+			
+
+{% endblock %}

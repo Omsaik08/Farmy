@@ -1,0 +1,173 @@
+{% extends 'farmer/index.html' %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block content %}
+
+<style type="text/css">
+	.row.user{
+		margin:0;
+		word-break: break-word;
+		border-radius: 10px;
+	}
+	.col-sm-2
+	{
+		display: flex;
+		align-items: center;
+	}
+	.imagePart{
+		    width: 80%;
+    height: 200px;
+    margin: 4%;
+	}
+	.container-fluid{
+		padding: 1%;
+		margin: 0;
+	}
+	.btn.btn-primary.btn-user.btn-block{
+		font-size: 18px;
+	}
+	.pagination {
+		display: inline-block;
+	}
+
+	.pagination a {
+		color: black;
+		float: left;
+		padding: 8px 16px;
+		text-decoration: none;
+	}
+
+	.pagination a.active {
+		background-color: #22cd92;
+		color: white;
+	}
+
+	.pagination a:hover:not(.active)
+	{
+		background-color: #ddd;
+	}
+	a:hover{
+		color: unset;
+	}
+</style>
+
+{% load static %}
+
+<div class="container-fluid p-4">
+
+	{% if data == 0 %}
+		<center>
+			<h3 class="darkNormalContent">No Questions Asked Till Now</h3>
+			<a href=" {% url 'farmerApp:ask_query' %} " class="btn btn-primary">Add Query</a>
+		</center>
+	{% else %}
+
+
+	<center>
+		<h3 class="darkNormalContent">{{title}}</h3>
+		{% for i in data %}
+		<div class="row user darkRowBorder darkNormalContent">
+
+			<div class="col-sm-2 user" >
+
+				{% if i.3 == ""  %}
+				<a href="{% static 'farmer/images/no_image.jpg' %}" target="_blank"><img src=" {% static 'farmer/images/no_image.jpg' %} " class="imagePart"></a>
+				{% else %}
+				<a href="/media/{{i.3}}" target="_blank"> <img src="/media/{{i.3}}" class="imagePart"> </a>
+				{% endif %}
+
+			</div>
+
+			<div class="col-sm-2 user" >
+
+				{% if i.4 == "" %}
+				<a href="{% static 'farmer/images/no_image.jpg' %}" target="_blank"><img src=" {% static 'farmer/images/no_image.jpg' %} " class="imagePart"></a>
+				{% else %}
+				<a href="/media/{{i.3}}" target="_blank"> <img src="/media/{{i.4}}" class="imagePart"> </a>
+				{% endif %}
+
+			</div>
+
+			<div class="col-sm-8 user darkNormalContent" >
+
+				<h2 class="darkContent">{{i.1}} </h2>
+				<p class="darkContent"> {{i.2}} </p>
+
+
+				<p class="qtime" style="text-align: right;"> {{i.6}} </p>
+				<p id="qstatus" style="text-align: right;"> Question Status : {{i.7}} </p>
+
+				<center>
+					{% if title == "All Questions" %}
+
+					<a href="{% url 'farmerApp:show_question' i.0%}" class="btn btn-primary m-2 showButton">See Details</a>
+					{% elif title == "My Questions" %}
+					{% if i.7 == "not answered" %}
+					<a href="{% url 'farmerApp:delete_question' i.0%}" onclick="check()" class="btn btn-primary m-2 showButton">Delete</a>
+					{% else %}
+					<a href="{% url 'farmerApp:show_question' i.0%}" class="btn btn-primary m-2 showButton">Show Answer</a>
+					<button class="btn btn-primary m-2 showButton" disabled>Delete</button>
+					{% endif %}
+					{% endif %}
+				</center>
+
+			</div>
+			<br>
+
+		</div>
+		<br>
+		{% endfor %}
+	</center>
+
+	<center>
+		<a href=" {% url 'farmerApp:ask_query' %} " class="btn btn-primary">Add Another Query</a>
+	</center><br>
+	{% if data.has_other_pages %}
+	<center>
+		<div class="pagination darkNormalContent">
+			{% if data.has_previous %}
+			<a class="darkNormalContent" href="?page={{ data.previous_page_number }}">&laquo;</a>
+			{% else %}
+			<a class="disabled darkNormalContent">&laquo;</a>
+			{% endif %}
+			{% for i in data.paginator.page_range %}
+			{% if data.number == i %}
+			<a class="active ">{{ i }} <span class="sr-only">(current)</span></a>
+			{% else %}
+			<a class="darkNormalContent" href="?page={{ i }}">{{ i }}</a>
+			{% endif %}
+			{% endfor %}
+			{% if data.has_next %}
+			<a class="darkNormalContent" href="?page={{ data.next_page_number }}">&raquo;</a>
+			{% else %}
+			<a class="disabled darkNormalContent">&raquo;</a>
+			{% endif %}
+		</div>
+	</center>
+	{% endif %}
+	{% endif %}
+
+</div>
+
+<script type="text/javascript">
+
+	var v=document.getElementsByClassName("qtime");
+	for (var i=0; i<v.length; i++) {
+		var s = v[i].textContent.split("T");
+		v[i].innerHTML = "Question Time : ".concat(s[0]," ",s[1].substring(0,2),":",s[1].substring(2,4),":",s[1].substring(4,6));
+
+	}
+
+	function check(){
+		if( confirm("Do you really want to delete this Question ?") ){
+		}
+		else{
+			window.location.href = " url 'farmerApp:my_questions' ";
+		}
+	}
+
+</script>
+
+
+{% endblock %}

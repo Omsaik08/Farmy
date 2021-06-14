@@ -1,0 +1,96 @@
+{% extends 'authority/index.html' %}
+
+{% block title %} News Feeds {% endblock %}
+
+
+{% block content %}
+
+
+<style type="text/css">
+	.imagePart{
+		width: 80%;
+		height: 200px;
+		margin: auto;
+	}
+	.col-sm-4.user{
+		display: flex;
+		align-items: center;
+
+	}
+
+	.pagination {
+		display: inline-block;
+	}
+
+	.pagination a {
+		color: black;
+		float: left;
+		padding: 8px 16px;
+		text-decoration: none;
+	}
+
+	.pagination a.active {
+		background-color: #4CAF50;
+		color: white;
+	}
+
+	.pagination a:hover:not(.active)
+	{
+		background-color: #ddd;
+	}
+
+</style>
+
+<div class="container">
+	<br>
+	<center>
+		{%for d in data %}
+	<div class="row user darkRowBorder darkNormalContent" >
+		<div class="col-sm-4 user" style="max-width: 100%;">
+			<img class="p-2 imagePart" src="{{d.thumbnail}}" >
+		</div>
+		<div class="col-sm-8 user" style="display: grid;padding: 1%;">
+
+			<div><span class="icon-chat">
+				{{d.date }}
+			Uploaded By {{d.source}}</span>
+		</div>
+
+		<h3 >{{d.title}}</h3>
+		<p>{{d.description}}</p>
+		<p><a href="{{d.link}}" class="btn btn-primary py-2 px-3"  target="_blank" >Read more</a></p>
+	</div>
+
+</div>
+<br>
+{% endfor %}
+	</center>
+
+{% if data.has_other_pages %}
+<center>
+	<div class="pagination darkNormalContent">
+		{% if data.has_previous %}
+		<a class="darkNormalContent" href="?page={{ data.previous_page_number }}">&laquo;</a>
+		{% else %}
+		<a class="disabled darkNormalContent">&laquo;</a>
+		{% endif %}
+		{% for i in data.paginator.page_range %}
+		{% if data.number == i %}
+		<a class="active darkNormalContent">{{ i }} <span class="sr-only">(current)</span></a>
+		{% else %}
+		<a class="darkNormalContent"  href="?page={{ i }}">{{ i }}</a>
+		{% endif %}
+		{% endfor %}
+		{% if data.has_next %}
+		<a class="darkNormalContent" href="?page={{ data.next_page_number }}">&raquo;</a>
+		{% else %}
+		<a class="disabled darkNormalContent">&raquo;</a>
+		{% endif %}
+	</div>
+</center>
+{% endif %}
+</div>
+
+
+
+{% endblock %}

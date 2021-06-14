@@ -1,0 +1,118 @@
+{% extends 'authority/index.html' %}
+
+{% block title %} Homepage {% endblock %}
+
+{% block content %}
+
+	<!--
+	one_day contains data for present day weather 
+	five day contains data for next five days weather
+-->
+{% load static %}
+<style type="text/css">
+	.container-fluid{
+		background-image: url({% static 'farmer/images/weatherbg.jpg' %});
+		background-repeat: no-repeat;
+	}
+	.row.user{
+		padding: 2%;
+		width: 85%;
+		margin-left: 10%;
+		word-break: break-all;
+	}
+	.farmyTable{
+		padding: 0px;
+		color: black;
+		position: inherit;
+		width: 100%;
+	}
+	.farmyRow{
+		margin:0px;
+		border: 1px solid black;
+		border-radius: 1px;
+		background-image: linear-gradient(to right, #00ff00, white);
+	}
+	.farmyData{
+		padding: 4% 0% 4% 4%;
+	}
+	a,a:hover{
+		color: white;
+	}
+
+	.mb-4{
+		margin: 0 !important;
+	}
+	.container-fluid{
+		padding: 0 !important;
+	}
+	@media only screen and (max-width: 1300px){
+		.row.user{
+			margin-left: 20%;
+			width: 60%;
+		}
+		.col-5{
+			display: contents;
+		}
+		.container-fluid{
+			background-size: cover;
+		}
+	}
+
+
+
+
+</style>
+
+
+
+
+
+<div class="container-fluid">
+						<center><strong style="color: white; font-size: 25px;">Weather  🌦</strong></center>
+					<br>
+	<div class="row user">
+		<div class="col-5">
+			<table class="farmyTable">
+				<tbody>
+					<tr class="farmyRow"><td class="farmyData">City : </td><td class="farmyData"> {{one_day.City}} </td></tr>
+					<tr class="farmyRow"><td class="farmyData">Weather Type : </td><td class="farmyData"> {{one_day.Weather_Type}} </td></tr>
+					<tr class="farmyRow"><td class="farmyData">Temperature : </td><td class="farmyData"> {{one_day.Current_Temperature}}</td></tr>
+					<tr class="farmyRow"><td class="farmyData">Humidity : </td><td class="farmyData"> {{one_day.Humidity}} </td></tr>
+					<tr class="farmyRow"><td class="farmyData">Wind Speed : </td><td class="farmyData"> {{one_day.Wind_Speed}} </td></tr>
+					<tr class="farmyRow"><td class="farmyData">Minimum Temperature : </td><td class="farmyData"> {{one_day.Minimum_Temperature}} </td></tr>
+					<tr class="farmyRow"><td class="farmyData">Maximum Temperature : </td><td class="farmyData"> {{one_day.Maximum_Temperature}} </td></tr>
+					<tr class="farmyRow"><td class="farmyData">Wind Degree : </td><td class="farmyData"> {{one_day.Wind_Degree}} </td></tr>
+					<tr class="farmyRow"><td class="farmyData">Cloud Percentage : </td><td class="farmyData"> {{one_day.Cloud_Percentage}} </td></tr>
+				</tbody>
+			</table>
+		</div>
+		<h1>&nbsp</h1>
+		<div class="col-5">
+			<table class="farmyTable">
+				<tbody>
+					<tr class="farmyRow"><td class="farmyData"> {{five_day.1.DateTime}} : </td><td class="farmyData">{{five_day.0.Weather_Type}} </td></tr>
+					<tr class="farmyRow"><td class="farmyData"> {{five_day.6.DateTime}} : </td><td class="farmyData"> {{five_day.6.Weather_Type}} </td></tr>
+					<tr class="farmyRow"><td class="farmyData"> {{five_day.11.DateTime}} : </td><td class="farmyData"> {{five_day.11.Weather_Type}} </td></tr>
+					<tr class="farmyRow"><td class="farmyData"> {{five_day.16.DateTime}} : </td><td class="farmyData"> {{five_day.16.Weather_Type}} </td></tr>
+					<tr class="farmyRow"><td class="farmyData"> {{five_day.21.DateTime}} : </td><td class="farmyData">{{five_day.21.Weather_Type}} </td></tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<br><br>
+	<center>
+		<form class="form-inline demo" action="{% url 'weatherApp:authority_homepage' %}" style="display: inline;" method="POST">
+						{% csrf_token %}
+						
+						<input type="text" name="cities" class="form-control" placeholder="Enter New City" required>&nbsp&nbsp
+						<input type="submit" class="btn btn-primary" onclick="setDate()">
+					</form>
+	</center>
+
+		<br><br>
+	</div>
+
+
+
+	{% endblock %}

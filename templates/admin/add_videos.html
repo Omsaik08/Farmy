@@ -1,0 +1,43 @@
+
+{% extends 'admin/index.html' %}
+
+{% block title %} Add Videos {% endblock %}
+
+
+    <!-- Page Heading -->
+    {% block content %}
+
+    <!-- Page Heading -->
+
+        <center>
+            <h1 class="darkNormalContent">Add Videos</h1>
+        </center>
+
+
+
+
+    <div class="card o-hidden my-5">
+            <!-- Nested Row within Card Body -->
+                    <div class="p-5">
+                        <form class="user" method="POST" enctype="multipart/form-data" action="{% url 'adminApp:add_videos' %} ">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <div class="col mb-3 mb-sm-0">
+                                    <input type="text" class="form-control form-control-user" name="title" placeholder="Title  youtube video" required="true">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col mb-3 mb-sm-0">
+                                    <input type="text" class="form-control form-control-user" name="link"  placeholder="link to youtube videos" required="true">
+                                </div>
+                            </div>
+
+                            <center><input type="Submit" class="btn btn-primary" id="submit"name="submit"></center>
+
+                        </form>
+                    </div>
+
+
+            </div>
+            <br>
+{% endblock %}

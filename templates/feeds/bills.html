@@ -1,0 +1,76 @@
+{% extends 'farmer/index.html' %}
+
+{% block title %} Amendment Bills {% endblock %}
+
+<style type="text/css">
+
+
+    @media only screen and(max-width:600px){
+        .row{
+            display:contents;
+            text-align center;
+        }
+        .col-8{
+            flex:unset;
+            max-width:100% !important;
+        }
+
+    }
+
+</style>
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<div class="container">
+  <br>
+  {% for i in data %}
+  <div class="row user darkRowBorder darkNormalContent" style=" text-align: center !important;
+    padding: 2% !important;">
+    <div class="col-4 user">
+      <i class="fa fa-file-pdf-o" style="font-size:100px;color:red;"></i>
+    </div>
+    <div class="col-8 user">
+
+      <span class="icon-chat">
+        {{i.bill_issued_date}}
+      Uploaded By {{i.issued_by}}
+      </span>
+
+    <h3>{{i.subject}}</h3>
+    <p>{{i.description}}</p>
+    <p ><a href="/media/{{i.bill}}" class="btn btn-primary py-2 px-3">Read more</a></p>
+  </div>
+
+</div>
+<br>
+{% endfor %}
+<br>
+</div>
+
+{% if data.has_other_pages %}
+<center>
+<div class="ml-5 pagination darkNormalContent">
+  {% if data.has_previous %}
+  <a class="darkNormalContent" href="?page={{ data.previous_page_number }}">&laquo;</a>
+  {% else %}
+  <a class="disabled darkNormalContent">&laquo;</a>
+  {% endif %}
+  {% for i in data.paginator.page_range %}
+  {% if data.number == i %}
+  <a class="active darkNormalContent">{{ i }} <span class="sr-only">(current)</span></a>
+  {% else %}
+  <a class="darkNormalContent" href="?page={{ i }}">{{ i }}</a>
+  {% endif %}
+  {% endfor %}
+  {% if data.has_next %}
+  <a class="darkNormalContent" href="?page={{ data.next_page_number }}">&raquo;</a>
+  {% else %}
+  <a class="disabled darkNormalContent">&raquo;</a>
+  {% endif %}
+</div>
+</center>
+{% endif %}
+
+{% endblock %}

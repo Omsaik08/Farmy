@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+      <title>{% block title  %}Guest Login{% endblock %} </title>
+      {% load static %}
+      <link rel="icon" href=" {% static 'farmer/images/mainlogo.png' %} " type="image/x-icon">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
+
+
+
+
+    <link rel="stylesheet" href="{% static 'farmer/css/open-iconic-bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'farmer/css/animate.css'%}">
+
+    <link rel="stylesheet" href="{% static 'farmer/css/owl.carousel.min.css'%}">
+    <link rel="stylesheet" href="{% static 'farmer/css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'farmer/css/magnific-popup.css' %}">
+
+    <link rel="stylesheet" href="{% static 'farmer/css/aos.css' %}">
+
+    <link rel="stylesheet" href="{% static 'farmer/css/ionicons.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'farmer/css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'farmer/css/jquery.timepicker.css' %}">
+
+
+    <link rel="stylesheet" href="{% static 'farmer/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'farmer/css/icomoon.css' %}">
+    <link rel="stylesheet" href="{% static 'farmer/css/style.css' %}">
+
+
+    <!-- dark mode css -->
+    <link rel="stylesheet" href="{% static 'farmer/css/dark.css' %}">
+    <!-- dark mode css -->
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  </head>
+  <body >
+
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark"  id="ftco-navbar" style=" background-color: #29323c; margin-bottom:0px !important;width: 100%;;border-bottom: 1px solid white;" >
+      <div class="container">
+
+      <img src="{% static 'farmer/images/mainlogo.png'%}" style="width:50px;"> &nbsp
+        <a class="navbar-brand" href=" {% url 'farmerApp:homepage' %} " style="color:#22cd92;">farmy</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="oi oi-menu"></span> Menu
+        </button>
+
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#22cd92;cursor: pointer;" >Login As</a>
+              <div class="dropdown-menu" aria-labelledby="dropdown03">
+                <a class="dropdown-item" href=" {% url 'farmerApp:login' %} " style="color:#22cd92;">📝 Farmer</a>
+                <a class="dropdown-item" href=" {% url 'authorityApp:login' %}" style="color: #22cd92;">📰 Authority</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <li class="nav-item">
+            <input type="submit" value="🌞" id="toggle" onclick="toggleDark()" style="position:inherit !important">
+        </li>
+<!-- dark mode -->
+
+            <!-- dark mode -->
+      </div>
+
+    </nav>
+    <!-- END nav -->
+
+
+<section id="home-section" class="hero">
+	<div class="home-slider owl-carousel">
+		<div class="slider-item" style="background-image: url({% static 'farmer/images/farmer1.jpg'%});">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+
+					<div class="col-sm-12 ftco-animate text-center">
+						<h1 class="mb-2" style="color: white;">Farmy</h1>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="slider-item" style="background-image: url({% static 'farmer/images/farmer2.jpg'%});">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+
+					<div class="col-sm-12 ftco-animate text-center">
+						<h1 class="mb-2" style="color: white;">Farmy</h1>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+  <br>
+    <div class="site-section">
+        <div class="container">
+            <div class="row user align-item-center darkRowBorder darkNormalContent p-2" >
+                <center>
+                  <h1 class="darkHeading">What is Farmy ?</h1>
+                <p class="darkContent"><b>Farmy</b> is a smart platform for <b>connecting Indian farmers and agricultural authorities</b> to solve farmer’s issues regarding crop, weed, pest damage, disease damage, nutrient deficiency etc. which will be developed to solve issues of Indian farmers.
+
+                </p>
+                </center>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <div class="site-section">
+        <div class="container">
+            <div class="row user align-item-center darkRowBorder darkNormalContent"  >
+                <div class="col-md-5 mb-md-0">
+                      <div class="img-border">
+                          <img src="{% static 'farmer/images/1.jpg' %}" alt="" class="img-fluid">
+                      </div>
+                </div>
+                <div class="col-md-6 ml-auto">
+                    <div class="section-heading">
+                        <center>
+                      <h4 class="mb-8 darkHeading">Have a Question? - Get it solved.</h4>
+                      </center>
+                    </div>
+                    <center>
+                    <p class="mb-4 darkContent">Stuck somewhere while doing farming?<br> Don't worry,Ask various Questions related to farming and get fast and assured solution from the local agricultural experts! <br> Happy Farming!</p>
+                    <p><a href="{% url 'farmerApp:ask_query' %}"><input type="submit" value="Ask Query" class="btn btn-primary pill text-white px-5 py-2"> <span class="icon-arrow-right small"></span></a></p><br>
+                    </center>
+                 </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="site-section">
+        <div class="container">
+            <div class="row user align-item-center darkRowBorder darkNormalContent">
+                <div class="col-md-6 ml-auto">
+                    <div class="section-heading">
+                        <center>
+                      <h4 class="mb-8 darkHeading">Latest News Feeds</h4>
+                      </center>
+                    </div>
+                    <center>
+                        <div class="col-1"></div>
+                    <p class="mb-4 darkContent">Want to be updated with latest trends and techniques of farming , want to know latest news related to farming just click on the button given below and explore the latest News!</p>
+                    <p><a href="{% url 'feedsApp:homepage' %}"><input type="submit" value="latest News" class="btn btn-primary pill text-white px-5 py-2"> <span class="icon-arrow-right small"></span></a></p><br>
+                    </center>
+                 </div>
+                <div class="col-md-5 mb-md-0" >
+                      <div class="img-border">
+                          <img src="{% static 'farmer/images/2.jpg' %}" alt="" class="img-fluid">
+                      </div>
+                      <br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="site-section">
+        <div class="container">
+            <div class="row user align-item-center darkRowBorder darkNormalContent">
+                <div class="col-md-5 mb-md-0" >
+                      <div class="img-border">
+                          <img src="{% static 'farmer/images/3.png' %}" alt="" class="img-fluid">
+                      </div>
+                </div>
+                <div class="col-md-6 ml-auto">
+                    <div class="section-heading">
+                        <center>
+                      <h4 class="mb-8 darkHeading">Current Weather Updates</h4>
+                        </center>
+                    </div>
+                    <center>
+                    <p class="mb-4 darkContent">Wondering How will today's weather be?<br> Check out the our weather update page and know how the weather gone act not only today but for next 5days. You can check weather of different locations.</p>
+                    <p><a href="{% url 'weatherApp:homepage' %}"><input type="submit" value="Weather Updates" class="btn btn-primary pill text-white px-5 py-2"> <span class="icon-arrow-right small"></span></a></p><br>
+                    </center>
+                 </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="site-section">
+        <div class="container">
+            <div class="row user align-item-center darkRowBorder darkNormalContent">
+                <div class="col-md-6 ml-auto">
+                    <div class="section-heading">
+                        <center>
+                      <h4 class="mb-8 darkHeading">Amendment Bills</h4>
+                      </center>
+                    </div>
+                    <center>
+                    <p class="mb-4 darkContent">Don't know whether goverment has issued the bill regarding farming? Check all latest Amendment bills on famring by just one click! </p>
+                    <p><a href="{% url 'feedsApp:bills' %}"><input type="submit" value="Bills" class="btn btn-primary pill text-white px-5 py-2"> <span class="icon-arrow-right small"></span></a></p><br>
+                    </center>
+                 </div>
+                 <div class="col-1"></div>
+                <div class="col-md-5 mb-md-0" >
+                      <div class="img-border">
+                          <img src="{% static 'farmer/images/4.jpg' %}" alt="" class="img-fluid">
+                      </div>
+                      <br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <br>
+     <button class="open-button" onclick="openForm()">💬</button>
+
+    <!--<form action=" {% url 'farmerApp:give_reply' %} " class="form-container" method="POST">
+      {% csrf_token %}
+
+      <div class="close" onclick="closeForm()">✖️ </div>
+      <div class="chat-heading"><b><img class="chatbot-img" src="{% static 'farmer/images/mainlogo.png'%}"> FarmyBot</b>
+        <div style="font-size: 13px">Typically replies under 1 min.</div>
+      </div >
+
+      <div class="message-body">
+
+
+
+      </div>
+
+
+      <div><input placeholder=" Enter Message here ..." class="input-message" type="text" minlength="2" name="userMsg" required><button class="chatbot-button" type="submit"><i class="fa fa-telegram" style="font-size:22px; color:#22cd92;outline: none !important;"></i></button></div>
+
+    </form>
+  </div>-->
+  <div class="chat-popup" id="myForm">
+    <!-- 1> <form action=" {% url 'farmerApp:give_reply' %} " class="form-container" method="POST">
+      {% csrf_token %}-->
+
+      <div class="close" onclick="closeForm()">✖️ </div>
+      <div class="chat-heading"><b><img class="chatbot-img" src="{% static 'farmer/images/mainlogo.png'%}"> FarmyBot</b>
+        <div style="font-size: 13px">Typically replies under 1 min.</div>
+      </div >
+
+      <div class="message-body" id="scrollto">
+
+
+
+      </div>
+
+
+      <div>
+        <input placeholder=" Enter Message here ..." class="input-message" type="text" minlength="2" name="userMsg" required>
+        <button class="chatbot-button" type="submit"><i class="fa fa-telegram" style="font-size:22px; color:#22cd92;outline: none !important;"></i></button>
+      </div>
+
+    <!--</form>-->
+  </div>
+
+
+    <footer class="ftco-footer ftco-section" style="background:#29323c">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2"><img src="{% static 'farmer/images/mainlogo.png'%}" style="width:50px;">FARMY</h2>
+              <div class='our-color'><p style="color:white;">Agriculture is our wisest pursuit, because it will in the end contribute most to real wealth, good morals, and happiness.</p></div>
+              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5" style="display: flex;">
+                <li class="ftco-animate"><a href="https://twitter.com/farmybizz" target="_blank"><span class="icon-twitter"></span></a></li>
+                <li class="ftco-animate"><a href="https://m.facebook.com/farmy.bizz" target="_blank"><span class="icon-facebook"></span></a></li>
+                <li class="ftco-animate"><a href="https://www.instagram.com/farmybizz" target="_blank"><span class="icon-instagram"></span></a></li>
+                <li class="ftco-animate"><a href="https://www.linkedin.com/in/bizz-farmy-341a0320a/" target="_blank"><span class="icon-linkedin"></span></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4 ml-md-5">
+              <div class='our-color'>
+              <h2 class="ftco-heading-2">Menu</h2>
+              <ul class="list-unstyled">
+                <li><a href=" {% url 'farmerApp:about' %} " class="py-2 d-block">About</a></li>
+                <li><a href=" {% url 'farmerApp:contact' %} " class="py-2 d-block">Contact Us</a></li>
+              </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md">
+             <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2">Help</h2>
+              <div class="d-flex">
+              <div class='our-color'>
+                <ul class="list-unstyled mr-l-5 pr-l-3 mr-4">
+                  <li><a href=" {% url 'farmerApp:terms_conditions' %} " class="py-2 d-block">Terms &amp; Conditions</a></li>
+                  <li><a href=" {% url 'farmerApp:privacy_policy' %} " class="py-2 d-block">Privacy Policy</a></li>
+                  <li><a href=" {% url 'farmerApp:faq' %} " class="py-2 d-block">FAQs</a></li>
+                </ul>
+              </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+              <div class='our-color'>
+              <h2 class="ftco-heading-2">Have a Questions?</h2>
+              <div class="block-23 mb-3">
+                <ul>
+                  <li><span class="icon icon-map-marker"></span><span class="text">Hirachand Nemchand Marg,Walchand Institute of Technology,solapur</span></li>
+                  <li><a href="tel:8484946271"><span class="icon icon-phone"></span><span class="text">+91-1234567890</span></a></li>
+                  <li><a href="mailto:bizzfarmy@gmail.com"><span class="icon icon-envelope"></span><span class="text">bizzfarmy@gmail.com</span></a></li>
+                </ul>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  <!--Translation<-->
+  <center>
+      <div id="google_translate_element">
+      </div>
+</center>
+
+
+
+<!-- dark mode script -->
+<script>
+  var state = false ;
+
+    function toggleDark(){
+        if(state){
+
+          state=false;
+
+          /* for subpart of section */
+          var v=document.getElementsByClassName("darkContent");
+          document.body.style.background="";
+          for (var i=0; i<v.length; i++) {
+            v[i].style.color = "";
+            v[i].style.backgroundColor = "";
+          }
+
+          /*for Headings */
+
+          var h=document.getElementsByClassName("darkHeading");
+          for (var i=0; i<h.length; i++) {
+            h[i].style.color ="";
+          }
+
+          /* for part of section without background */
+
+          var n=document.getElementsByClassName("darkNormalContent");
+          for (var i=0; i<n.length; i++) {
+            n[i].style.color = "";
+          }
+
+          var hr = document.getElementsByTagName('hr');
+          for (var i=0; i<hr.length; i++) {
+            hr[i].style.borderTop = "1px solid black";
+          }
+
+
+          /* for border of sections*/
+
+          var b=document.getElementsByClassName("darkRowBorder");
+          for (var i=0; i<b.length; i++) {
+            b[i].style.border="";
+            b[i].style.boxShadow="";
+            b[i].style.backgroundColor="";
+          }
+
+        }
+        else{
+          state=true;
+
+          /* for subpart of section */
+          var v=document.getElementsByClassName("darkContent");
+          document.body.style.background="#3c3b3b";
+          for (var i=0; i<v.length; i++) {
+            v[i].style.color = "white";
+            v[i].style.backgroundColor = "#3c3b3b" ;
+          }
+
+          /*for Headings */
+
+          var h=document.getElementsByClassName("darkHeading");
+          for (var i=0; i<h.length; i++) {
+            h[i].style.color = "#22cd92";
+          }
+
+          /* for part of section without background */
+
+          var n=document.getElementsByClassName("darkNormalContent");
+          for (var i=0; i<n.length; i++) {
+            n[i].style.color = "white";
+          }
+
+          var hr = document.getElementsByTagName('hr');
+          for (var i=0; i<hr.length; i++) {
+            hr[i].style.borderTop = '1px solid white';
+          }
+
+          /* for border of sections*/
+
+          var b=document.getElementsByClassName("darkRowBorder");
+          for (var i=0; i<b.length; i++) {
+            b[i].style.border="1px solid white";
+            b[i].style.boxShadow="5px 7px 10px 0px white";
+            b[i].style.backgroundColor="black";
+          }
+        }
+    }
+
+       /*Chatbot
+      function openForm() {
+        $('.chat-popup').css('display','block');
+
+      }
+
+      function closeForm() {
+        $('.chat-popup').css('display','none');
+
+      }
+
+
+    if( "{{request.build_absolute_uri}}" != "{{request.META.HTTP_REFERER}}" ){
+      $('.chat-popup').css('display','none');
+    }
+    var audioElement = document.createElement('audio');
+    audioElement.setAttribute('src', '{% static "msg_sound.mp3" %}');
+
+    var vmsg="{{request.session.msg}}";
+    vmsg=vmsg.split("^");
+    if(vmsg.length==1)
+    {
+     $('.message-body').append( "<div class='messageFrom-content'><div class='message-contentFrom'>"+vmsg+"</div></div>" );
+
+    }
+    else{
+    for(i=0;i<vmsg.length;i++)
+    {
+      if(i%2==0)
+      {
+      $('.message-body').append( "<div class='row m-2 messageFrom-content'><div class='message-contentFrom'>"+vmsg[i]+"</div></div>" );
+      }
+      else{
+      $('.message-body').append( "<div class='row m-2 messageTo-content'><div class='message-contentTo'>"+vmsg[i]+"</div></div><br>" );
+      }
+
+    }
+     audioElement.play();
+
+  }
+*/
+     //Chatbot
+
+       var ele=document.getElementById("scrollto");
+
+      function openForm() {
+        $('.chat-popup').css('display','block');
+                ele.scrollTop=ele.scrollHeight;
+        $(".open-button").hide();
+      }
+
+      function closeForm() {
+        $('.chat-popup').css('display','none');
+    $(".open-button").show();
+      }
+
+
+
+
+    if( "{{request.build_absolute_uri}}" != "{{request.META.HTTP_REFERER}}" ){
+      $('.chat-popup').css('display','none');
+    }
+
+
+
+
+
+   var audioElement = document.createElement('audio');
+    audioElement.setAttribute('src', '{% static "msg_sound.mp3" %}');
+
+
+
+    var ele=document.getElementById("scrollto");
+
+
+    var vmsg="{{request.session.msg}}";
+    vmsg=vmsg.split("^");
+
+    if(vmsg.length==1)
+    {
+      $('.message-body').empty();
+     $('.message-body').append( "<div class='messageFrom-content'><div class='message-contentFrom'>"+vmsg+"</div></div>" );
+    }
+    else{
+      $('.message-body').empty();
+       for(i=0;i<vmsg.length;i++)
+      {
+        if(i%2==0)
+        {
+        $('.message-body').append( "<div class='row m-2 messageFrom-content'><div class='message-contentFrom'>"+vmsg[i]+"</div></div>" );
+        }
+        else{
+        $('.message-body').append( "<div class='row m-2 messageTo-content'><div class='message-contentTo'>"+vmsg[i]+"</div></div><br>" );
+        }
+      }
+    }
+    ele.scrollTop=ele.scrollHeight;
+
+  $(".chatbot-button").click(function(){
+    var chatbotMsg = $(".input-message").val();
+
+    $('.message-body').append( "<div class='row m-2 messageTo-content'><div class='message-contentTo'>"+chatbotMsg+"</div></div><br>" );
+    $('.input-message').val('');
+ele.scrollTop=ele.scrollHeight;
+
+     $.ajax({
+        url: '{% url "farmerApp:give_reply" %}' ,
+        data: {
+          'userMsg': chatbotMsg,
+        },
+        dataType: 'json',
+        success: function (impdata) {
+          if (impdata.status==0){
+
+            $('.chat-popup').css('display','block');
+             $('.message-body').append( "<div class='row m-2 messageFrom-content'><div class='message-contentFrom'>"+impdata.reply+"</div></div>" );
+             audioElement.play();
+              ele.scrollTop=ele.scrollHeight;
+          }
+          else{
+
+            $('.chat-popup').css('display','block');
+              $('.message-body').append( "<div class='row m-2 messageFrom-content'><div class='message-contentFrom'>"+impdata.reply+"</div></div>" );
+              audioElement.play();
+              ele.scrollTop=ele.scrollHeight;
+          }
+
+        }
+      });
+
+
+  });
+  //end chatbot
+
+</script>
+<style type="text/css">
+  .darkHeading{
+    border-left: 12px solid blue;
+    background-color: #c1ffff;
+    color: black;
+    border-radius: 8px;
+  }
+
+  .darkContent{
+    padding: 2%;
+    border-radius: 10px;
+    background-color:#DCDADA;
+  }
+  .darkRowBorder{
+    border-radius: 10px;
+    border: 1px solid #00000038;
+    box-shadow: 5px 7px 10px 0px #00000057;
+    background-color: white;
+  }
+  .ftco-heading-2
+  {
+    color: #22cd92;
+  }
+  body{
+      font-family: courier new;
+  }
+  .row .user{
+      text-align: center;
+  }
+  .col-md-6,.col-md-5{
+      padding-top:2%;
+  }
+  .img-border {
+    text-align: center;
+    }
+
+
+     /*chatbot*/
+ .open-button {
+  background-color: #22cd92;
+    color: white;
+    padding: 16px 10px;
+    outline: none !important;
+    cursor: pointer;
+    border:none;
+    position: fixed;
+    bottom: 23px;
+    right: 28px;
+    width: 70px;
+    height: 70px;
+    border-radius: 34px 8px 34px 34px;
+    font-size: 25px;
+    outline: unset;
+    z-index: 1;
+}
+
+/* The popup chat - hidden by default */
+.chat-popup {
+  position: fixed;
+  bottom: 10px;
+  right: 15px;
+  z-index: 9;
+
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 400px;
+  background-color: #dedcdc;
+  padding: 1px;
+  bottom: 10px;
+    position: relative;
+    border-radius: 10px;
+}
+
+  body{
+    font-family: courier new;
+  }
+  .chat-heading{
+    text-align: center;
+    background-color: #22cd92;
+    font-size: 25px;
+    padding: 10px;
+    color: white;
+ border-radius: 10px 10px 0 0;
+  }
+  .close
+  {
+    cursor: pointer;
+      right: 5px;
+    text-align: right;
+    position: relative;
+    top: 15px;
+  }
+  .message-body{
+    height: 55vh;
+    width: 18rem;
+    background-color: white;
+    margin: 5px 5px 5px 5px;
+    padding:4px;
+    border-radius: 5px;
+    /*overflow: auto;*/
+    overflow: scroll;
+  }
+  .input-message{
+    padding-left: 10px;
+    width: 95%;
+    margin-left: 2%;
+    height: 42px;
+    border: none;
+    outline: none !important;
+    border-radius: 5px;
+    margin-bottom: 5.5px;
+  }
+  .chatbot-button{
+    position: fixed;
+    background-color: white;
+    cursor: pointer;
+
+    right: 20px;
+    padding: 6px;
+    margin: 6px;
+    border: none;
+    bottom: 10px;
+    outline: unset !important;
+  }
+  .messageFrom-content{
+    width: inherit !important;
+    max-width: 80%;
+
+  }
+  .message-contentFrom{
+    font-size: 13px;
+    padding: 8px;
+    border-radius: 2px 10px 10px;
+    background-color: #dedcdc;
+  }
+  .messageTo-content{
+    width: fit-content;
+    max-width: 80%;
+    position: relative;
+    text-align: right;
+    float: right;
+    word-break: break-all;
+  }
+  .message-contentTo{
+    font-size: 13px;
+    padding: 8px;
+    background-color: #22cd92;
+    border-radius: 10px 4px 10px 10px;
+    color: white;
+  }
+  .chatbot-label{
+    font-size: 13px;
+  }
+  .chatbot-img{
+    height: 45px;
+    position: absolute;
+    background-color: white;
+    left: 20px;
+    top: 10px;
+    border-radius: 47%;
+  }
+</style>
+
+
+
+  <script src="{% static 'farmer/js/translate/translate.js' %}"></script>
+
+
+  <script src="{% static 'farmer/js/jquery.min.js' %}"></script>
+  <script src="{% static 'farmer/js/jquery-migrate-3.0.1.min.js' %}"></script>
+  <script src="{% static 'farmer/js/popper.min.js' %}"></script>
+  <script src="{% static 'farmer/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'farmer/js/jquery.easing.1.3.js' %}"></script>
+  <script src="{% static 'farmer/js/jquery.waypoints.min.js' %}"></script>
+  <script src="{% static 'farmer/js/jquery.stellar.min.js' %}"></script>
+  <script src="{% static 'farmer/js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'farmer/js/jquery.magnific-popup.min.js' %}"></script>
+  <script src="{% static 'farmer/js/aos.js' %}"></script>
+  <script src="{% static 'farmer/js/jquery.animateNumber.min.js' %}"></script>
+  <script src="{% static 'farmer/js/bootstrap-datepicker.js' %}"></script>
+  <script src="{% static 'farmer/js/scrollax.min.js' %}"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="{% static 'farmer/js/google-map.js' %}"></script>
+  <script src="{% static 'farmer/js/main.js' %}"></script>
+
+  </body>
+</html>

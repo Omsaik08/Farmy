@@ -1,0 +1,180 @@
+{% extends 'farmer/index.html' %}
+
+{% block title %} FAQ's {% endblock %}
+
+
+{% block content %}
+{% load static %}
+
+
+
+<head>
+  <style>
+
+    .hr1{
+      margin: 0px;
+      position: relative;
+      border-color: #8bc34a;}
+
+      .collapsible {
+        background-color: #8bc34a;
+        color: BLACK;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: center;
+        /* outline: none; */
+        font-size: 15px;
+      }
+
+      .collapsible:hover {
+        background-color: #8bc34aeb;
+      }
+
+      .collapsible:after {
+        content: '\002B';
+        color: white;
+        font-weight: bold;
+        float: right;
+        margin-left: 5px;
+      }
+
+      .active:after {
+        content: "\2212";
+      }
+
+      .content1 {
+        padding: 0 18px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        background-color: #8bc34a54;
+      }
+      .bottom_margin{
+        margin-bottom: 2rem;
+      }
+      @media only screen and (max-width: 800px) {
+        .hr1{
+          margin: 0px;
+          width: 19%;
+          position: relative;
+          border-color: #8bc34a;}
+
+          .collapsible {
+           background-color: #8bc34a;
+           color: BLACK;
+           cursor: pointer;
+           padding: 18px;
+           width: 100%;
+           border: none;
+           text-align: center;
+           /* outline: none; */
+           font-size: 15px;
+         }
+
+         .collapsible:hover {
+          background-color: #8bc34aeb;
+        }
+
+        .collapsible:after {
+          content: '\002B';
+          color: white;
+          font-weight: bold;
+          float: right;
+          margin-left: 5px;
+        }
+
+        .active:after {
+          content: "\2212";
+        }
+
+        .content1 {
+          padding: 0 18px;
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.2s ease-out;
+          background-color: #8bc34a29;
+        }
+        .bottom_margin{
+          margin-bottom: 2rem;
+        }
+
+      }
+    </style>
+  </head>
+
+
+
+
+  <br>
+  <center>
+
+    <div class="row">
+      <div class="col-6 pl-4 pr-4 darkRowBorder" style="left:10%;width: 80%;max-width: 100%;flex:unset;">
+
+        <h1 style="color:#22cd92">FAQ</h1>
+        <hr class="hr1">
+
+        <h6 class="darkNormalContent">WHAT IS SO SPECIAL ABOUT FARMY?</h6><br>
+        <div class="darkNormalContent">
+          <p><b>Platform</b> to connect farmers and agricultural authorities for solving issues/queries of farmers.</p>
+
+          <br><br>
+
+          <h5 style="color:#22cd92">Some FAQs</h5>
+
+          <div class="bottom_margin">
+            <button class="collapsible">Why can't I sign in?</button>
+            <div class="content1">
+              <p>Make sure you have active Internet connection on your device and you have entered correct username and password,if you can't remember your password,we encourage you to change your password by clicking on <a href="{% url 'farmerApp:forgot'  %}"><i>forgot password</i></a></p>
+            </div>
+            <button class="collapsible">Can I have Multiple Accounts?</button>
+            <div class="content1">
+              <p>Yes,you can have multiple accounts but make sure that the credentials for all the account should be unique.</p>
+            </div>
+            <button class="collapsible">I am not a farmer can I use this website?</button>
+            <div class="content1">
+              <p>Yes,you can use this website if you are not farmer.</p>
+            </div>
+            <button class="collapsible">I want to Delete my account?</button>
+            <div class="content1">
+              <p>If you want to deactive or delete then navigate to
+                my profile->click on delete->Enter your recent password->submit</p>
+              </div>
+              <button class="collapsible">How do I change my Profile information?</button>
+              <div class="content1">
+                <p>goto myprofile->click on update profile->change neccessary infomation->update.</p>
+              </div>
+              <button class="collapsible">I want to Deactivate my account?</button>
+              <div class="content1">
+                <p>No,you can not deactivate your account due to our privacy policy.</p>
+              </div>
+            </div>
+
+            <script>
+              var coll = document.getElementsByClassName("collapsible");
+              var i;
+
+              for (i = 0; i < coll.length; i++) {
+                coll[i].addEventListener("click", function() {
+                  this.classList.toggle("active");
+                  var content1 = this.nextElementSibling;
+                  if (content1.style.maxHeight){
+                    content1.style.maxHeight = null;
+                  } else {
+                    content1.style.maxHeight = content1.scrollHeight + "px";
+                  }
+                });
+              }
+            </script>
+
+
+          </div>
+
+        </div>
+      </div>
+
+    </center>
+    <br>
+    {% endblock %}

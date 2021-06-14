@@ -1,0 +1,10 @@
+amandment_bills_tbl
+
+id (autogenrated)
+authority_id  (who is uploading) (fk from authority table)
+bill_issued_date
+bill_uploading_date
+issued by 
+bill
+subject
+description

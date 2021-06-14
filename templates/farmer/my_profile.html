@@ -1,0 +1,96 @@
+{% extends 'farmer/index.html' %}
+
+{% block title %} My Profile {% endblock %}
+
+
+    <!-- Page Heading -->
+    {% block content %}
+
+<style>
+.card {
+
+  max-width: 700px;
+  margin: auto;
+
+  text-align: center;
+
+}
+
+.name{
+	color: #22cd92;
+}
+
+.main
+{
+	margin: 10px;
+	font-size: 20px;
+}
+
+abbr{
+  text-decoration: none  !important;
+}
+a:hover{
+  color:unset;
+}
+
+</style>
+{% load static %}
+
+
+
+<div class="card darkRowBorder">
+    <br>
+    <h2 style="text-align:center" class="darkNormalContent">My Profile</h2><br>
+  {% for i in data %}
+
+    <center>
+      {% if i.profile_photo == "" %}
+      <img src=" {% static 'farmer/images/no_image.jpg' %} " style="height: 100%;width: 112px" >
+    {% else %}
+      <img class="p-5" src="/media/{{i.profile_photo}}" style="width:100%;height:80%;">
+    {% endif %}
+    </center>
+
+
+    <h1 class="name">{{i.first_name}} {{i.last_name}}</h1>
+    <p class="darkNormalContent">Gender : {{i.gender}}</p>
+    <p class="darkNormalContent">DOB : {{i.dob}}</p>
+    <div style="margin: 20px 0;">
+      <abbr title="{{i.email}}">
+        <a class="main darkNormalContent"  href="mailto:{{i.email}}" disable><i class="icon-envelope" style="color:black;"></i></a>
+      </abbr>
+      <abbr title="{{i.mobile_no}}">
+        <a class="main darkNormalContent"  href="tel:{{i.mobile_no}}"><span class="icon-phone" style="color:black;"></span></a>
+      </abbr>
+      <abbr title="{{i.address}}">
+        <a class="main darkNormalContent" ><i class="icon-map-marker" style="color:black;"></i></a>
+      </abbr>
+    </div>
+  {% endfor %}
+</div>
+
+<br>
+<center><button class="btn btn-primary" onclick="update()">Update</button>
+<button class="btn btn-primary" id="delete" onclick="check()">Delete Account</button></center>
+<br>
+
+
+<script type="text/javascript">
+
+  function update()
+  {
+    window.location.href="{% url 'farmerApp:update_profile'%}"
+  }
+  function check(){
+    if( confirm("Do you really want to delete your account :( ?") ){
+      window.location.href = " {% url 'farmerApp:delete_account' %} ";
+    }
+    else{
+      window.location.href = " {% url 'farmerApp:my_profile' %} ";
+    }
+  }
+
+</script>
+
+
+    {% endblock %}

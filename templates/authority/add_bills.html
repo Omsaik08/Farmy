@@ -1,0 +1,63 @@
+
+{% extends 'authority/index.html' %}
+
+{% block title %} Add Bills {% endblock %}
+
+
+    <!-- Page Heading -->
+    {% block content %}
+
+    <!-- Page Heading -->
+
+        <center>
+            <h1 class="darkNormalContent">Add Bills</h1>
+        </center>
+
+
+
+
+    <div class="card o-hidden my-5 darkRowBorder darkNormalContent">
+            <!-- Nested Row within Card Body -->
+                    <div class="p-5">
+
+                        <form class="user" method="POST" enctype="multipart/form-data" action="{% url 'authorityApp:add' %} ">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <div class="col mb-3 mb-sm-0">
+                                <input type="text" name="authority_id" value="{{request.session.authority_id}}" hidden> <!--replace 1 to session  -->
+                                    <input type="text" name="bill_uploading_date" id="bill_uploading_date"  required="true" hidden>
+                                    <input type="date" class="form-control form-control-user" name="bill_issued_date" id="billdate" placeholder="Bill Date" required="true" style="color:black;">
+                                </div>
+                                <div class="col-sm-6 darkNormalContent">
+                                        <input type="file"  name="bill" placeholder="bill" required="true" >
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="text" class="form-control form-control-user" name="subject" id="billsubject" placeholder="Subject Of bill" required="true">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control form-control-user" name="issued_by" id="issuedby" placeholder="Bill Issued By" required="true">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-user" id="description" name="description"
+                                placeholder="Add Description about Bill Upto 50 words" required="true">
+                            </div>
+
+                                <center><input type="Submit" class="btn btn-primary" onclick="setDate()" id="submit" name="submit"></center>
+
+                        </form>
+                    </div>
+
+
+            </div>
+<script>
+  function setDate(){
+    x = new Date();
+    res = x.getDate()+"-"+(x.getMonth()+1)+"-"+x.getFullYear()+"T"+String(x.getHours()).padStart(2, "0")+""+String(x.getMinutes()).padStart(2, "0")+""+String(x.getSeconds()).padStart(2, "0");
+    document.getElementById('bill_uploading_date').value=res;
+  }
+
+</script>
+{% endblock %}
