@@ -1,4 +1,4 @@
-<h3>Farmy</h3><br>
+<h3>"Farmy-A better approch for farming"</h3><br>
 Farmy is a <b>"smart website for connecting farmers and agricultural authorities together to solve all issues of farmers."</b>  This Website is developed by group of four members from Walchand institute of technology,Solapur. This Website is purely developed to solve all the issues of Indian farmer by addressing their issues.<br>
 <br>
 <b>Our Team :</b><br>
