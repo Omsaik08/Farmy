@@ -20,7 +20,7 @@ python manage.py makemigrations<br>
 python manage.py migrate<br>
 <b>Step 8:</b>Run Django server http://localhost:8000
 
-
+<br>
 <b>Website Link:</b><br>
 http://farmy.pythonanywhere.com/<br>
 <br>
